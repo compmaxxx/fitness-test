@@ -4,15 +4,15 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Estimate;
-use app\models\GroupEstimateSearch;
+use app\models\EstimateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * GroupEstimateController implements the CRUD actions for Estimate model.
+ * EstimateController implements the CRUD actions for Estimate model.
  */
-class GroupEstimateController extends Controller
+class EstimateController extends Controller
 {
     public function behaviors()
     {
@@ -32,7 +32,7 @@ class GroupEstimateController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new GroupEstimateSearch();
+        $searchModel = new EstimateSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

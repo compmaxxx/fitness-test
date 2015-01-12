@@ -10,12 +10,10 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $description
- * @property integer $groupEst_id
  * @property string $cal
  *
  * @property AddCourse[] $addCourses
  * @property Course[] $courses
- * @property GroupEstimate $groupEst
  * @property Result[] $results
  * @property Translation[] $translations
  */
@@ -35,7 +33,6 @@ class Estimate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['groupEst_id'], 'integer'],
             [['name', 'description'], 'string', 'max' => 150],
             [['cal'], 'string', 'max' => 300]
         ];
@@ -50,7 +47,6 @@ class Estimate extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-            'groupEst_id' => 'Group Est ID',
             'cal' => 'Cal',
         ];
     }
@@ -69,14 +65,6 @@ class Estimate extends \yii\db\ActiveRecord
     public function getCourses()
     {
         return $this->hasMany(Course::className(), ['id' => 'course_id'])->viaTable('add_course', ['estimate_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGroupEst()
-    {
-        return $this->hasOne(GroupEstimate::className(), ['id' => 'groupEst_id']);
     }
 
     /**

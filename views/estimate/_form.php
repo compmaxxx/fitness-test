@@ -16,8 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 150]) ?>
 
-    <?= $form->field($model, 'groupEst_id')->textInput() ?>
-
     <?= $form->field($model, 'cal')->textInput(['maxlength' => 300]) ?>
 
     <div class="form-group">

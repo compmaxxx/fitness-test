@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Estimate;
 
 /**
- * GroupEstimateSearch represents the model behind the search form about `app\models\Estimate`.
+ * EstimateSearch represents the model behind the search form about `app\models\Estimate`.
  */
-class GroupEstimateSearch extends Estimate
+class EstimateSearch extends Estimate
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class GroupEstimateSearch extends Estimate
     public function rules()
     {
         return [
-            [['id', 'groupEst_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'description', 'cal'], 'safe'],
         ];
     }
@@ -57,7 +57,6 @@ class GroupEstimateSearch extends Estimate
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'groupEst_id' => $this->groupEst_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

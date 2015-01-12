@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GroupEstimateSearch */
+/* @var $searchModel app\models\EstimateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Estimates';
@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'description',
-            'groupEst_id',
             'cal',
 
             ['class' => 'yii\grid\ActionColumn'],

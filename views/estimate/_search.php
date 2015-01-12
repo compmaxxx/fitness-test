@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\GroupEstimateSearch */
+/* @var $model app\models\EstimateSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'groupEst_id') ?>
 
     <?= $form->field($model, 'cal') ?>
 
