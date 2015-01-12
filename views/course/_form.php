@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\GroupCourse;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Course */
@@ -16,9 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => 150]) ?>
 
-    <?= $form->field($model, 'create_date')->textInput() ?>
-
-    <?= $form->field($model, 'groupcourse_id')->textInput() ?>
+    <?= $form->field($model, 'groupcourse_id')->dropDownList(
+      ArrayHelper::map(GroupCourse::find()->all(),'id','name')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
