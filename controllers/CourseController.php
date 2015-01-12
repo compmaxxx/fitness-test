@@ -63,7 +63,7 @@ class CourseController extends Controller
         $model = new Course();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->create_date = date('Y-m-d h:m:s');
+            $model->create_date = date('Y-m-d H:i:s');
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
