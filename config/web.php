@@ -40,8 +40,10 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
           'enablePrettyUrl' => true,
+          'enableStrictParsing' => true,
           'showScriptName' => false,
           'rules' => [
+            ''=>'',
             '<controller:\w+>/<id:\d+>'=>'<controller>/view',
             '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
             '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -50,7 +52,6 @@ $config = [
 
     ],
     'params' => $params,
-    'defaultRoute' => 'site/index',
 ];
 
 if (YII_ENV_DEV) {

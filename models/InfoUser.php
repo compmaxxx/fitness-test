@@ -8,9 +8,11 @@ use Yii;
  * This is the model class for table "info_user".
  *
  * @property integer $id
- * @property string $name
- * @property string $sex
  * @property integer $user_id
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $sex
+ * @property string $birthdate
  *
  * @property Tester $user
  */
@@ -31,7 +33,9 @@ class InfoUser extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'integer'],
-            [['name'], 'string', 'max' => 200],
+            [['lastname', 'birthdate'], 'required'],
+            [['birthdate'], 'safe'],
+            [['firstname', 'lastname'], 'string', 'max' => 100],
             [['sex'], 'string', 'max' => 6]
         ];
     }
@@ -43,9 +47,11 @@ class InfoUser extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'sex' => 'Sex',
             'user_id' => 'User ID',
+            'firstname' => 'Firstname',
+            'lastname' => 'Lastname',
+            'sex' => 'Sex',
+            'birthdate' => 'Birthdate',
         ];
     }
 
