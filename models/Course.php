@@ -49,7 +49,7 @@ class Course extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'location' => 'Location',
-            'create_date' => 'Create Date',
+            'create_date' => 'Updated',
             'groupcourse_id' => 'Groupcourse ID',
         ];
     }
