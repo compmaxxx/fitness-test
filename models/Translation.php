@@ -30,10 +30,10 @@ class Translation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['id', 'estimate_id', 'condition_eval', 'value'], 'required'],
             [['id', 'estimate_id'], 'integer'],
             [['condition_eval'], 'string', 'max' => 50],
-            [['value'], 'string', 'max' => 100]
+            [['value'], 'string', 'max' => 200]
         ];
     }
 

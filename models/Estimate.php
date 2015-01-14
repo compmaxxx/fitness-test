@@ -33,6 +33,7 @@ class Estimate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'cal'], 'required'],
             [['name', 'description'], 'string', 'max' => 150],
             [['cal'], 'string', 'max' => 300]
         ];

@@ -12,7 +12,7 @@ use Yii;
  * @property string $firstname
  * @property string $lastname
  * @property string $sex
- * @property string $birthdate
+ * @property integer $year
  *
  * @property Tester $user
  */
@@ -32,11 +32,10 @@ class InfoUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
-            [['lastname', 'birthdate'], 'required'],
-            [['birthdate'], 'safe'],
-            [['firstname', 'lastname'], 'string', 'max' => 100],
-            [['sex'], 'string', 'max' => 6]
+            [['user_id', 'year'], 'integer'],
+            [['firstname', 'lastname', 'sex', 'year'], 'required'],
+            [['sex'], 'string'],
+            [['firstname', 'lastname'], 'string', 'max' => 100]
         ];
     }
 
@@ -51,7 +50,7 @@ class InfoUser extends \yii\db\ActiveRecord
             'firstname' => 'Firstname',
             'lastname' => 'Lastname',
             'sex' => 'Sex',
-            'birthdate' => 'Birthdate',
+            'year' => 'Year',
         ];
     }
 

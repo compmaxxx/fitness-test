@@ -18,8 +18,8 @@ class InfoUserSearch extends InfoUser
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
-            [['firstname', 'lastname', 'sex', 'birthdate'], 'safe'],
+            [['id', 'user_id', 'year'], 'integer'],
+            [['firstname', 'lastname', 'sex'], 'safe'],
         ];
     }
 
@@ -58,7 +58,7 @@ class InfoUserSearch extends InfoUser
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'birthdate' => $this->birthdate,
+            'year' => $this->year,
         ]);
 
         $query->andFilterWhere(['like', 'firstname', $this->firstname])

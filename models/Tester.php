@@ -30,6 +30,7 @@ class Tester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['uniq_id', 'nisitKU'], 'required'],
             [['nisitKU'], 'integer'],
             [['uniq_id'], 'string', 'max' => 20]
         ];

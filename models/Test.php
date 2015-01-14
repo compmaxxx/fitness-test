@@ -30,6 +30,7 @@ class Test extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['isTime'], 'integer'],
             [['name'], 'string', 'max' => 200],
             [['unit'], 'string', 'max' => 50]

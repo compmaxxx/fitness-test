@@ -34,6 +34,7 @@ class Course extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'create_date'], 'required'],
             [['create_date'], 'safe'],
             [['groupcourse_id'], 'integer'],
             [['name', 'location'], 'string', 'max' => 150]
@@ -49,7 +50,7 @@ class Course extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'location' => 'Location',
-            'create_date' => 'Updated',
+            'create_date' => 'Create Date',
             'groupcourse_id' => 'Groupcourse ID',
         ];
     }
