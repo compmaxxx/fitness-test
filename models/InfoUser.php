@@ -8,13 +8,13 @@ use Yii;
  * This is the model class for table "info_user".
  *
  * @property integer $id
- * @property integer $user_id
+ * @property integer $tester_id
  * @property string $firstname
  * @property string $lastname
  * @property string $sex
- * @property integer $year
+ * @property integer $age
  *
- * @property Tester $user
+ * @property Tester $tester
  */
 class InfoUser extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,8 @@ class InfoUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'year'], 'integer'],
-            [['firstname', 'lastname', 'sex', 'year'], 'required'],
+            [['tester_id', 'age'], 'integer'],
+            [['firstname', 'lastname', 'sex', 'age'], 'required'],
             [['sex'], 'string'],
             [['firstname', 'lastname'], 'string', 'max' => 100]
         ];
@@ -46,19 +46,19 @@ class InfoUser extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'tester_id' => 'Tester ID',
             'firstname' => 'Firstname',
             'lastname' => 'Lastname',
             'sex' => 'Sex',
-            'year' => 'Year',
+            'age' => 'Age',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getTester()
     {
-        return $this->hasOne(Tester::className(), ['id' => 'user_id']);
+        return $this->hasOne(Tester::className(), ['id' => 'tester_id']);
     }
 }

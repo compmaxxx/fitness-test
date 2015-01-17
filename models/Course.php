@@ -86,4 +86,13 @@ class Course extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Result::className(), ['course_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTests()
+    {
+        return $this->hasMany(Test::className(), ['estimate_id' => 'id'])->viaTable('estimate',['id' => 'estimate_id'])->viaTable('add_course',['course_id' => 'id']);
+    }
+
 }
