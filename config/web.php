@@ -11,6 +11,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'scGM_SqxIXX18_ccw5Rmg42DMveHam4r',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -41,13 +44,13 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
           'enablePrettyUrl' => true,
-          'enableStrictParsing' => true,
+          'enableStrictParsing' => false,
           'showScriptName' => false,
           'rules' => [
-            ''=>'',
-            '<controller>/<id:\d+>'=>'<controller>/view',
-            '<controller>/<action>/<id:\d+>'=>'<controller>/<action>',
-            '<controller>/<action>'=>'<controller>/<action>',
+            '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+            '<controller:\w+>/<action\w+>/<id:\d+>'=>'<controller>/<action>',
+            '<controller:\w+>/<action\w+>'=>'<controller>/<action>',
+              ['class' => 'yii\rest\UrlRule', 'controller' => 'course-rest', 'pluralize'=>false],
           ],
         ],
 

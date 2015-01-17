@@ -17,6 +17,7 @@ use Yii;
  * @property Estimate[] $estimates
  * @property GroupCourse $groupcourse
  * @property Result[] $results
+ * @property Test[] $tests
  */
 class Course extends \yii\db\ActiveRecord
 {
