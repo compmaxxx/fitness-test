@@ -18,7 +18,7 @@ class CourseSearch extends Course
     public function rules()
     {
         return [
-            [['id', 'groupcourse_id'], 'integer'],
+            [['id', 'groupcourse_id', 'is_active'], 'integer'],
             [['name', 'location', 'create_date'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class CourseSearch extends Course
             'id' => $this->id,
             'create_date' => $this->create_date,
             'groupcourse_id' => $this->groupcourse_id,
+            'is_active' => $this->is_active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

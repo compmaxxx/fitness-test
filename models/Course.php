@@ -12,12 +12,12 @@ use Yii;
  * @property string $location
  * @property string $create_date
  * @property integer $groupcourse_id
+ * @property integer $is_active
  *
  * @property AddCourse[] $addCourses
  * @property Estimate[] $estimates
  * @property GroupCourse $groupcourse
  * @property Result[] $results
- * @property Test[] $tests
  */
 class Course extends \yii\db\ActiveRecord
 {
@@ -35,9 +35,9 @@ class Course extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'create_date'], 'required'],
-            [['create_date'], 'safe'],
-            [['groupcourse_id'], 'integer'],
+            [['name', 'create_date','groupcourse_id'], 'required'],
+            [['create_date', 'groupcourse_id', 'is_active'], 'safe'],
+            [['groupcourse_id', 'is_active'], 'integer'],
             [['name', 'location'], 'string', 'max' => 150]
         ];
     }
@@ -53,6 +53,7 @@ class Course extends \yii\db\ActiveRecord
             'location' => 'Location',
             'create_date' => 'Create Date',
             'groupcourse_id' => 'Groupcourse ID',
+            'is_active' => 'Is Active',
         ];
     }
 
@@ -95,5 +96,4 @@ class Course extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Test::className(), ['estimate_id' => 'id'])->viaTable('estimate',['id' => 'estimate_id'])->viaTable('add_course',['course_id' => 'id']);
     }
-
 }
