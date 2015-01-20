@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+//use yii\helpers\ArrayHelper;
 use Yii;
 use app\models\Course;
 use app\models\CourseSearch;
@@ -65,8 +66,10 @@ class CourseController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->create_date = date('Y-m-d H:i:s');
             $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -82,10 +85,13 @@ class CourseController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->estimate_id = $model->getEstimateID($id);
+
 
         if ($model->load(Yii::$app->request->post())) {
             $model->create_date = date('Y-m-d H:i:s');
             $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

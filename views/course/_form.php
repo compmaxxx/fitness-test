@@ -11,6 +11,7 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?//= var_dump($model->estimate_id) ?>
 <div class="course-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -19,9 +20,18 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => 150]) ?>
 
+    <?= $form->field($model, 'estimate_id')->widget(Select2::className(), [
+        'data' => $model->selectEstimates,
+        'options' => [
+            'placeholder' => 'Select Estimates ...',
+            'multiple' => true,
+        ],
+
+    ]);
+    ?>
+
     <?= $form->field($model, 'groupcourse_id')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(GroupCourse::find()->all(),'id','name'),
-        'language' => 'th',
         'options' => ['placeholder' => 'Select a group of course ...'],
         'pluginOptions' => [
             'allowClear' => true

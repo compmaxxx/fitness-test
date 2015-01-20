@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "course".
@@ -21,6 +22,7 @@ use Yii;
  */
 class Course extends \yii\db\ActiveRecord
 {
+    public $estimate_id = [];
     /**
      * @inheritdoc
      */
@@ -36,9 +38,10 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'create_date','groupcourse_id'], 'required'],
-            [['create_date', 'groupcourse_id', 'is_active'], 'safe'],
+            [['create_date', 'groupcourse_id', 'is_active','estimate_id'], 'safe'],
             [['groupcourse_id', 'is_active'], 'integer'],
-            [['name', 'location'], 'string', 'max' => 150]
+            [['name', 'location'], 'string', 'max' => 150],
+            [['estimate_id'],'checkIsArray']
         ];
     }
 
@@ -95,5 +98,40 @@ class Course extends \yii\db\ActiveRecord
     public function getTests()
     {
         return $this->hasMany(Test::className(), ['estimate_id' => 'id'])->viaTable('estimate',['id' => 'estimate_id'])->viaTable('add_course',['course_id' => 'id']);
+    }
+
+    public function getselectEstimates(){
+        return ArrayHelper::map(Estimate::find()->asArray()->all(),'id','name');
+    }
+
+    public function getEstimateID($id){
+        $this->estimate_id = ArrayHelper::getColumn(
+            $this->getAddCourses()->where(['course_id' => $id])->asArray()->all(), 'estimate_id'
+        );
+
+        return $this->estimate_id;
+    }
+    public function afterSave($insert){
+        $actualAddCourse =  AddCourse::find()->where(['course_id' => $this->id])->all();
+
+        if($actualAddCourse != null){
+            foreach($actualAddCourse as $remove){
+                $remove->delete();
+            }
+        }
+
+        foreach($this->estimate_id as $estimate_id){
+            $addCourse = new AddCourse();
+            $addCourse->course_id = $this->id;
+            $addCourse->estimate_id = $estimate_id;
+            $addCourse->save();
+        }
+//        parent::afterSave($insert);
+    }
+
+    public function checkIsArray(){
+        if(!is_array($this->estimate_id)){
+            $this->addError('estimate_id','estimate_id is not array!');
+        }
     }
 }
