@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -29,8 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'is_active',
+//            ['class' => '\kartik\grid\CheckboxColumn'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'responsive' => true,
+        'hover' => true,
+
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
