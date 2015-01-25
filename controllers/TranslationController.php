@@ -8,6 +8,7 @@ use app\models\TranslationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
 
 /**
  * TranslationController implements the CRUD actions for Translation model.
@@ -60,9 +61,10 @@ class TranslationController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Translation();
+        $model = [new Translation()];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Model::loadMultiple($model,Yii::$app->request->post())) {
+            exit(0);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

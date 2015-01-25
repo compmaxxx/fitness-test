@@ -16,6 +16,8 @@ use Yii;
  */
 class Translation extends \yii\db\ActiveRecord
 {
+    public $comparison1,$comparison2;
+    public $val1,$val2;
     /**
      * @inheritdoc
      */
@@ -30,10 +32,11 @@ class Translation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'estimate_id', 'condition_eval', 'value'], 'required'],
-            [['id', 'estimate_id'], 'integer'],
+            [['id', 'estimate_id', 'condition_eval', 'value', 'comparison1', 'val1'], 'required'],
+            [['id', 'estimate_id', 'val1', 'val2'], 'integer'],
             [['condition_eval'], 'string', 'max' => 50],
-            [['value'], 'string', 'max' => 200]
+            [['value'], 'string', 'max' => 200],
+            [['comparision1','comparision2'], 'string', 'max' => '3'],
         ];
     }
 
@@ -57,4 +60,5 @@ class Translation extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Estimate::className(), ['id' => 'estimate_id']);
     }
+
 }
