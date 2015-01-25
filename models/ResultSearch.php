@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Test;
+use app\models\Result;
 
 /**
- * TestSearch represents the model behind the search form about `app\models\Test`.
+ * ResultSearch represents the model behind the search form about `app\models\Result`.
  */
-class TestSearch extends Test
+class ResultSearch extends Result
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class TestSearch extends Test
     public function rules()
     {
         return [
-            [['id', 'isTime', 'estimate_id'], 'integer'],
-            [['name', 'unit'], 'safe'],
+            [['id', 'course_id', 'test_id', 'tester_id'], 'integer'],
+            [['value'], 'number'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TestSearch extends Test
      */
     public function search($params)
     {
-        $query = Test::find();
+        $query = Result::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,12 +57,11 @@ class TestSearch extends Test
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'isTime' => $this->isTime,
-            'estimate_id' => $this->estimate_id,
+            'value' => $this->value,
+            'course_id' => $this->course_id,
+            'test_id' => $this->test_id,
+            'tester_id' => $this->tester_id,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'unit', $this->unit]);
 
         return $dataProvider;
     }

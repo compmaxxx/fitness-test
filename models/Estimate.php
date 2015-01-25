@@ -20,7 +20,6 @@ use Yii;
  */
 class Estimate extends \yii\db\ActiveRecord
 {
-    public $tests = [];
     /**
      * @inheritdoc
      */
@@ -38,7 +37,6 @@ class Estimate extends \yii\db\ActiveRecord
             [['name', 'cal'], 'required'],
             [['name', 'description'], 'string', 'max' => 150],
             [['cal'], 'string', 'max' => 300],
-            [['tests'],'checkIsArray']
         ];
     }
 
@@ -95,13 +93,4 @@ class Estimate extends \yii\db\ActiveRecord
         return $this->hasMany(Translation::className(), ['estimate_id' => 'id']);
     }
 
-    public function loadTest(){
-
-    }
-
-    public function checkIsArray(){
-        if(!is_array($this->tests)){
-            $this->addError('tests','tests is not array!');
-        }
-    }
 }

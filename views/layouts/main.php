@@ -36,13 +36,14 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Course', 'url' => ['/course/index']],
-                    ['label' => 'GroupCourse', 'url' => ['/group-course/index']],
                     ['label' => 'Estimate', 'url' => ['/estimate/index']],
-                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
-                    ['label' => 'UserInfo', 'url' => ['/info-user/index']],
+                    ['label' => 'Translation', 'url' => ['/translation/index']],
                     ['label' => 'Test', 'url' => ['/test/index']],
                     ['label' => 'Tester', 'url' => ['/tester/index']],
-                    ['label' => 'Translation', 'url' => ['/translation/index']],
+                    ['label' => 'UserInfo', 'url' => ['/info-user/index']],
+                    ['label' => 'Result', 'url' => ['/result/index']],
+                    ['label' => 'GroupCourse', 'url' => ['/group-course/index']],
+                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
 
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :

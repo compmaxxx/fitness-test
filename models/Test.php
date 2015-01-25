@@ -11,8 +11,10 @@ use Yii;
  * @property string $name
  * @property string $unit
  * @property integer $isTime
+ * @property integer $estimate_id
  *
  * @property Result[] $results
+ * @property Estimate $estimate
  */
 class Test extends \yii\db\ActiveRecord
 {
@@ -31,9 +33,10 @@ class Test extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['isTime'], 'integer'],
+            [['isTime', 'estimate_id'], 'integer'],
             [['name'], 'string', 'max' => 200],
-            [['unit'], 'string', 'max' => 50]
+            [['unit'], 'string', 'max' => 50],
+            [['estimate_id'], 'safe'],
         ];
     }
 
@@ -47,6 +50,7 @@ class Test extends \yii\db\ActiveRecord
             'name' => 'Name',
             'unit' => 'Unit',
             'isTime' => 'Is Time',
+            'estimate_id' => 'Estimate ID',
         ];
     }
 
@@ -56,5 +60,13 @@ class Test extends \yii\db\ActiveRecord
     public function getResults()
     {
         return $this->hasMany(Result::className(), ['test_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEstimate()
+    {
+        return $this->hasOne(Estimate::className(), ['id' => 'estimate_id']);
     }
 }

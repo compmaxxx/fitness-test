@@ -2,19 +2,17 @@
 
 namespace app\controllers;
 
-use yii\base\Model;
-use app\models\Test;
 use Yii;
-use app\models\Estimate;
-use app\models\EstimateSearch;
+use app\models\Result;
+use app\models\ResultSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EstimateController implements the CRUD actions for Estimate model.
+ * ResultController implements the CRUD actions for Result model.
  */
-class EstimateController extends Controller
+class ResultController extends Controller
 {
     public function behaviors()
     {
@@ -29,12 +27,12 @@ class EstimateController extends Controller
     }
 
     /**
-     * Lists all Estimate models.
+     * Lists all Result models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EstimateSearch();
+        $searchModel = new ResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,7 +42,7 @@ class EstimateController extends Controller
     }
 
     /**
-     * Displays a single Estimate model.
+     * Displays a single Result model.
      * @param integer $id
      * @return mixed
      */
@@ -56,66 +54,44 @@ class EstimateController extends Controller
     }
 
     /**
-     * Creates a new Estimate model.
+     * Creates a new Result model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $modelEstimate = new Estimate();
-        $modelTests = [new Test];
+        $model = new Result();
 
-
-        if ($modelEstimate->load(Yii::$app->request->post())) {
-            foreach(Yii::$app->request->post('Test') as $i => $post){
-                $modelTests[$i] = new Test();
-            }
-
-            if(Model::loadMultiple($modelTests, Yii::$app->request->post()) && Model::validateMultiple($modelTests)){
-                $modelEstimate->save();
-                foreach($modelTests as $i => $test){
-
-                    $test->estimate_id = $modelEstimate->id;
-                    $test->save();
-                }
-            }
-
-            return $this->redirect(['view', 'id' => $modelEstimate->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'modelEstimate' => $modelEstimate,
-                'modelTests' => $modelTests,
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Updates an existing Estimate model.
+     * Updates an existing Result model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $modelEstimate = $this->findModel($id);
-        $modelTests = $modelEstimate->getTests()->all();
-        if($modelTests == null){
-            $modelTests = [new Test()];
-        }
+        $model = $this->findModel($id);
 
-        if ($modelEstimate->load(Yii::$app->request->post())) {
-            $modelEstimate->save();
-            return $this->redirect(['view', 'id' => $modelEstimate->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'modelEstimate' => $modelEstimate,
-                'modelTests' => $modelTests,
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Estimate model.
+     * Deletes an existing Result model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,15 +104,15 @@ class EstimateController extends Controller
     }
 
     /**
-     * Finds the Estimate model based on its primary key value.
+     * Finds the Result model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Estimate the loaded model
+     * @return Result the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Estimate::findOne($id)) !== null) {
+        if (($model = Result::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

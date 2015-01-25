@@ -10,14 +10,12 @@ use Yii;
  * @property integer $id
  * @property double $value
  * @property integer $course_id
- * @property integer $estimate_id
  * @property integer $test_id
- * @property integer $user_id
+ * @property integer $tester_id
  *
  * @property Course $course
- * @property Estimate $estimate
  * @property Test $test
- * @property Tester $user
+ * @property Tester $tester
  */
 class Result extends \yii\db\ActiveRecord
 {
@@ -35,8 +33,9 @@ class Result extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['value'], 'required'],
             [['value'], 'number'],
-            [['course_id', 'estimate_id', 'test_id', 'user_id'], 'integer']
+            [['course_id', 'test_id', 'tester_id'], 'integer']
         ];
     }
 
@@ -49,9 +48,8 @@ class Result extends \yii\db\ActiveRecord
             'id' => 'ID',
             'value' => 'Value',
             'course_id' => 'Course ID',
-            'estimate_id' => 'Estimate ID',
             'test_id' => 'Test ID',
-            'user_id' => 'User ID',
+            'tester_id' => 'Tester ID',
         ];
     }
 
@@ -66,14 +64,6 @@ class Result extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEstimate()
-    {
-        return $this->hasOne(Estimate::className(), ['id' => 'estimate_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getTest()
     {
         return $this->hasOne(Test::className(), ['id' => 'test_id']);
@@ -82,8 +72,8 @@ class Result extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getTester()
     {
-        return $this->hasOne(Tester::className(), ['id' => 'user_id']);
+        return $this->hasOne(Tester::className(), ['id' => 'tester_id']);
     }
 }
