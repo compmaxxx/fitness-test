@@ -30,7 +30,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 //    ?>
 <!--    code dynamic form-->
     <div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Tests</h4></div>
+        <div class="panel-heading"><h4><i class="glyphicon glyphicon-apple"></i> Tests</h4></div>
         <div class="panel-body">
             <?php DynamicFormWidget::begin([
                 'dynamicItems' => '#form-tests',

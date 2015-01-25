@@ -76,7 +76,7 @@ class EstimateController extends Controller
                 foreach($modelTests as $i => $test){
 
                     $test->estimate_id = $modelEstimate->id;
-                    $test->save();
+                    $test->save(false);
                 }
             }
 

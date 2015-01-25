@@ -15,7 +15,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model[0], 'estimate_id')->widget(Select2::className(), [
+    <?= $form->field($model, 'estimate_id')->widget(Select2::className(), [
         'data' => ArrayHelper::map(Estimate::find()->all(),'id','name'),
         'options' => [
             'placeholder' => 'Select Estimates ...',
@@ -34,11 +34,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
             <?php DynamicFormWidget::begin([
                 'dynamicItems' => '#form-evaluates',
                 'dynamicItem' => '.form-evaluates-item',
-                'model' => $model[0],
+                'model' => $modelForm[0],
                 'formId' => 'dynamic-form',
                 'formFields' => [
-                    'condition_eval',
-                    'value',
+                    'lower',
+                    'lower_val',
+                    'translate',
+                    'upper',
+                    'upper_val',
                 ],
                 'options' => [
                     'min' => 1,
@@ -47,7 +50,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ]); ?>
 
             <div id="form-evaluates">
-                <?php foreach ($model as $i => $condition): ?>
+                <?php foreach ($modelForm as $i => $condition): ?>
                     <div class="form-evaluates-item panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title pull-left"></h3>
@@ -64,39 +67,44 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             //                                echo Html::activeHiddenInput($test, "[{$i}]id");
                             //                            }
                             ?>
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 <div class="col-md-2">
-                                    <?= $form->field($condition, "[{$i}]comparison1")->dropDownList(
+                                    <?= $form->field($condition, "[{$i}]lower")->dropDownList(
                                         [
-                                            '<',
-                                            '<=',
-                                            '==',
-                                            '>',
-                                            '>=',
-                                            '!='
+                                            '>' => '>',
+                                            '>=' => '>=',
+                                            '==' => '==',
                                         ]
                                     ) ?>
                                 </div>
-                                <div class="col-md-offset-1 col-md-8">
-                                    <?= $form->field($condition, "[{$i}]val1")->textInput() ?>
+                                <div class="col-md-offset-1 col-md-2">
+                                    <?= $form->field($condition, "[{$i}]lower_val")->textInput([
+                                        'placeholder' => 'Number ...'
+                                    ]) ?>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-6">
+                                    <?= $form->field($condition, "[{$i}]translate")->textInput([
+                                        'placeholder' => 'Type text ...'
+                                    ]) ?>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <?= $form->field($condition, "[{$i}]comparison2")->dropDownList(
+                                    <?= $form->field($condition, "[{$i}]upper")->dropDownList(
                                         [
-                                            '',
-                                            '<',
-                                            '<=',
-                                            '==',
-                                            '>',
-                                            '>=',
-                                            '!='
+                                            '' => '',
+                                            '<' => '<',
+                                            '<=' => '<=',
+                                            '==' => '==',
                                         ]
                                     ) ?>
                                 </div>
-                                <div class="col-md-offset-1 col-md-8">
-                                    <?= $form->field($condition, "[{$i}]val2")->textInput() ?>
+                                <div class="col-md-offset-1 col-md-2">
+                                    <?= $form->field($condition, "[{$i}]upper_val")->textInput([
+                                        'placeholder' => 'Number ...'
+                                    ]) ?>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -107,7 +115,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model[0]->isNewRecord ? 'Create' : 'Update', ['class' => $model[0]->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

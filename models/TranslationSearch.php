@@ -41,7 +41,7 @@ class TranslationSearch extends Translation
      */
     public function search($params)
     {
-        $query = Translation::find();
+        $query = Translation::find()->groupBy('estimate_id');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

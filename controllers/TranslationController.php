@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\TranslationForm;
 use Yii;
 use app\models\Translation;
 use app\models\TranslationSearch;
@@ -61,14 +62,42 @@ class TranslationController extends Controller
      */
     public function actionCreate()
     {
-        $model = [new Translation()];
+        $modelTranslation = new Translation();
+        $modelForm = [new TranslationForm()];
 
-        if (Model::loadMultiple($model,Yii::$app->request->post())) {
-            exit(0);
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        $postData = Yii::$app->request->post();
+
+        if($modelTranslation->load(Yii::$app->request->post())){
+//            var_dump($postData);
+//            exit(0);
+//            var_dump($modelTranslation->estimate_id);
+//            exit(0);
+            $modelTranslationSave = [];
+            foreach (Yii::$app->request->post('TranslationForm') as $i => $post) {
+                $modelTranslationSave[$i] = new Translation();
+                $modelForm[$i] = new TranslationForm();
+            }
+            if (Model::loadMultiple($modelForm, Yii::$app->request->post()) && Model::validateMultiple($modelForm)) {
+                foreach ($modelForm as $i => $form) {
+                    $modelTranslationSave[$i]->estimate_id = $modelTranslation->estimate_id;
+                    $modelTranslationSave[$i]->value = $form->translate;
+                    if($form->upper != ''){
+                        $modelTranslationSave[$i]->condition_eval = 'result'.$form->lower.$form->lower_val.' && '.'result'.$form->upper.$form->upper_val;
+                    }
+                    else{
+                        $modelTranslationSave[$i]->condition_eval = 'result'.$form->lower.$form->lower_val;
+                    }
+
+                    $modelTranslationSave[$i]->save();
+                }
+
+                return $this->redirect(['view', 'id' => $modelTranslation->id]);
+            }
+        }
+        else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $modelTranslation,
+                'modelForm' => $modelForm,
             ]);
         }
     }
@@ -81,9 +110,12 @@ class TranslationController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $estimate_id = $this->findModel($id)->estimate_id;
+        $model = Translation::find()->where([
+           'estimate_id' => $estimate_id
+        ])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Model::loadMultiple($model,Yii::$app->request->post())) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
