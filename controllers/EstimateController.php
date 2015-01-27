@@ -132,6 +132,13 @@ class EstimateController extends Controller
                     $test->save(false);
                 }
             }
+            /* After update tests less than before */
+            $lenTest = count($modelTests);
+            $lenPost = count(Yii::$app->request->post('Test'));
+//            $diff = count($modelTests) - count(Yii::$app->request->post());
+            for ($i = $lenPost; $i<$lenTest; $i++){
+                $modelTests[$i]->delete();
+            }
 
             return $this->redirect(['view', 'id' => $modelEstimate->id]);
         } else {

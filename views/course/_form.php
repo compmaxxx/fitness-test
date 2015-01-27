@@ -36,7 +36,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]);
+    ])->label('GroupCourse');
     ?>
 
     <?= $form->field($model, 'is_active')->checkbox() ?>

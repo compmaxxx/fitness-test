@@ -23,7 +23,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])?>
+    ])->label('Estimate')
+    ?>
 <!--    --><?//= $form->field($model, 'condition_eval')->textInput(['maxlength' => 50]) ?>
 <!---->
 <!--    --><?//= $form->field($model, 'value')->textInput(['maxlength' => 100]) ?>

@@ -116,7 +116,7 @@ class TranslationController extends Controller
            'estimate_id' => $estimate_id
         ])->all();
 
-        $model = new Translation(/*['estimate_id'=>$estimate_id]*/);
+        $model = new Translation();
         $model->estimate_id= $estimate_id;
         $modelForm = [];
         foreach ($modelTranslation as $i => $translation) {
@@ -129,13 +129,29 @@ class TranslationController extends Controller
             if(preg_match($pattern,$temp,$matches)){
                 $modelForm[$i]->attributes = $matches;
             }
+            else{
+                /*handle error pattern*/
+            }
 
         }
 
+        $postData = Yii::$app->request->post();
+        if($postData){
+            $translations = [];
+            foreach ($postData as $i => $post) {
+                if(isset($modelForm[$i])){
+                    $translations[$i] = $modelForm[$i];
+                }
+            }
 
-        if (Model::loadMultiple($modelTranslation,Yii::$app->request->post())) {
-            return $this->redirect(['view', 'id' => $modelTranslation->id]);
-        } else {
+
+            if (Model::loadMultiple($modelTranslation,Yii::$app->request->post())) {
+
+
+                return $this->redirect(['view', 'id' => $modelTranslation->id]);
+            }
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
                 'modelForm' => $modelForm
