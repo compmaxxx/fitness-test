@@ -32,7 +32,7 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'groupcourse_id')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(GroupCourse::find()->all(),'id','name'),
-        'options' => ['placeholder' => 'Select a group of course ...'],
+        'options' => ['placeholder' => 'Select a Group of course ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],

@@ -39,7 +39,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 'formFields' => [
                     'lower',
                     'lower_val',
-                    'translate',
+                    'value',
                     'upper',
                     'upper_val',
                 ],
@@ -84,7 +84,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 </div>
 
                                 <div class="col-md-offset-1 col-md-6">
-                                    <?= $form->field($condition, "[{$i}]translate")->textInput([
+                                    <?= $form->field($condition, "[{$i}]value")->textInput([
                                         'placeholder' => 'Type text ...'
                                     ]) ?>
                                 </div>

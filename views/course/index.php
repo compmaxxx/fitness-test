@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'groupcourse.name',
-            'id',
+//            'id',
             'name',
             'is_active',
 //            ['class' => '\kartik\grid\CheckboxColumn'],

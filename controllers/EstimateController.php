@@ -102,9 +102,37 @@ class EstimateController extends Controller
         if($modelTests == null){
             $modelTests = [new Test()];
         }
+//        var_dump(Yii::$app->request->post());
+//        exit(0);
 
-        if ($modelEstimate->load(Yii::$app->request->post())) {
-            $modelEstimate->save();
+        if ($modelEstimate->load(Yii::$app->request->post()) && $modelEstimate->validate()) {
+//            /*Delete all test before update*/
+//            foreach($modelTests as $i => $test){
+//                $modelTests[$i]->delete();
+//            }
+//            var_dump($modelTests);
+//            exit(0);
+            $tests = [];
+
+            foreach(Yii::$app->request->post('Test') as $i => $post){
+                if(isset($modelTests[$i])){
+                    $tests[$i] = $modelTests[$i];
+                }
+                else{
+                    $tests[$i] = new Test();
+                }
+
+            }
+
+            if(Model::loadMultiple($tests, Yii::$app->request->post()) && Model::validateMultiple($tests)){
+                $modelEstimate->save();
+                foreach($tests as $i => $test){
+
+                    $test->estimate_id = $modelEstimate->id;
+                    $test->save(false);
+                }
+            }
+
             return $this->redirect(['view', 'id' => $modelEstimate->id]);
         } else {
             return $this->render('update', [

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'uniq_id')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'nisitKU')->textInput() ?>
+    <?= $form->field($model, 'nisitKU')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

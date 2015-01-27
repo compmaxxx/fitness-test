@@ -16,6 +16,7 @@ use yii\base\Model;
  */
 class TranslationController extends Controller
 {
+    private $resultStr = 'result';
     public function behaviors()
     {
         return [
@@ -80,12 +81,12 @@ class TranslationController extends Controller
             if (Model::loadMultiple($modelForm, Yii::$app->request->post()) && Model::validateMultiple($modelForm)) {
                 foreach ($modelForm as $i => $form) {
                     $modelTranslationSave[$i]->estimate_id = $modelTranslation->estimate_id;
-                    $modelTranslationSave[$i]->value = $form->translate;
+                    $modelTranslationSave[$i]->value = $form->value;
                     if($form->upper != ''){
-                        $modelTranslationSave[$i]->condition_eval = 'result'.$form->lower.$form->lower_val.' && '.'result'.$form->upper.$form->upper_val;
+                        $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val.' && '.$this->resultStr.$form->upper.$form->upper_val;
                     }
                     else{
-                        $modelTranslationSave[$i]->condition_eval = 'result'.$form->lower.$form->lower_val;
+                        $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val;
                     }
 
                     $modelTranslationSave[$i]->save();
@@ -111,15 +112,33 @@ class TranslationController extends Controller
     public function actionUpdate($id)
     {
         $estimate_id = $this->findModel($id)->estimate_id;
-        $model = Translation::find()->where([
+        $modelTranslation = Translation::find()->where([
            'estimate_id' => $estimate_id
         ])->all();
 
-        if (Model::loadMultiple($model,Yii::$app->request->post())) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new Translation(/*['estimate_id'=>$estimate_id]*/);
+        $model->estimate_id= $estimate_id;
+        $modelForm = [];
+        foreach ($modelTranslation as $i => $translation) {
+            $modelForm[$i] = new TranslationForm();
+            $modelForm[$i]->value = $translation->value;
+            $temp = $translation->condition_eval;
+
+            $matches = null;
+            $pattern = '/(?P<result1>\w+)(?P<lower>[>=<!]+)(?P<lower_val>[+-]?\d+.?\d+)( && (?P<result2>\w+)(?P<upper>[>=<!]+)(?P<upper_val>[+-]?\d+.?\d+))?/';
+            if(preg_match($pattern,$temp,$matches)){
+                $modelForm[$i]->attributes = $matches;
+            }
+
+        }
+
+
+        if (Model::loadMultiple($modelTranslation,Yii::$app->request->post())) {
+            return $this->redirect(['view', 'id' => $modelTranslation->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modelForm' => $modelForm
             ]);
         }
     }

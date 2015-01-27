@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
 //            'id',
-            'estimate_id',
+            'estimate.name',
 //            'condition_eval',
 //            'value',
 
