@@ -27,7 +27,7 @@ use kartik\select2\Select2;
             'multiple' => true,
         ],
 
-    ]);
+    ])->label('Estimates')
     ?>
 
     <?= $form->field($model, 'groupcourse_id')->widget(Select2::classname(), [
@@ -36,7 +36,7 @@ use kartik\select2\Select2;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('GroupCourse');
+    ])
     ?>
 
     <?= $form->field($model, 'is_active')->checkbox() ?>

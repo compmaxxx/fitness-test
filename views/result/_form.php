@@ -36,7 +36,7 @@ use app\models\Tester;
     ]) ?>
 
     <?= $form->field($model, 'tester_id')->widget(Select2::className(),[
-        'data' => ArrayHelper::map(Test::find()->all(),'id','name'),
+        'data' => ArrayHelper::map(Tester::find()->all(),'id','uniq_id'),
         'options' => ['placeholder' => 'Select a Tester ...'],
         'pluginOptions' => [
             'allowClear' => true

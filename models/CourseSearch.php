@@ -18,8 +18,8 @@ class CourseSearch extends Course
     public function rules()
     {
         return [
-            [['id', 'groupcourse_id', 'is_active'], 'integer'],
-            [['name', 'location', 'create_date'], 'safe'],
+            [['id', 'is_active'], 'integer'],
+            [['name', 'location', 'create_date', 'groupcourse_id'], 'safe'],
         ];
     }
 
@@ -47,6 +47,8 @@ class CourseSearch extends Course
             'query' => $query,
         ]);
 
+        $query->joinWith('groupcourse');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -58,12 +60,12 @@ class CourseSearch extends Course
         $query->andFilterWhere([
             'id' => $this->id,
             'create_date' => $this->create_date,
-            'groupcourse_id' => $this->groupcourse_id,
             'is_active' => $this->is_active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'location', $this->location]);
+            ->andFilterWhere(['like', 'location', $this->location])
+            ->andFilterWhere(['like', 'group_course.name', $this->groupcourse_id]);
 
         return $dataProvider;
     }

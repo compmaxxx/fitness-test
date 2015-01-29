@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
 
-$this->title = $model->id;
+$this->title = $model->getEstimate()->one()->name;
 $this->params['breadcrumbs'][] = ['label' => 'Translations', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

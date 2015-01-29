@@ -12,7 +12,7 @@ class TranslationForm extends Model{
     public function rules()
     {
         return [
-            [['lower', 'lower_val', 'translate'], 'required','message'=>''],
+            [['lower', 'lower_val', 'value'], 'required','message'=>''],
             [['value'], 'string', 'max' => 200],
             [['lower','upper'], 'string', 'max' => '3'],
             [['lower_val', 'upper_val'], 'double'],

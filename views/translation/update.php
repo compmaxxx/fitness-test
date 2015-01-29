@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Translation */
 
-$this->title = 'Update Translation: ' . ' ' . $model->id;
+$this->title = 'Update Translation: ' . ' ' . $model->getEstimate()->one()->name;
 $this->params['breadcrumbs'][] = ['label' => 'Translations', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->getEstimate()->one()->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="translation-update">

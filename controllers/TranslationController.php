@@ -79,20 +79,13 @@ class TranslationController extends Controller
                 $modelForm[$i] = new TranslationForm();
             }
             if (Model::loadMultiple($modelForm, Yii::$app->request->post()) && Model::validateMultiple($modelForm)) {
-                foreach ($modelForm as $i => $form) {
-                    $modelTranslationSave[$i]->estimate_id = $modelTranslation->estimate_id;
-                    $modelTranslationSave[$i]->value = $form->value;
-                    if($form->upper != ''){
-                        $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val.' && '.$this->resultStr.$form->upper.$form->upper_val;
-                    }
-                    else{
-                        $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val;
-                    }
 
-                    $modelTranslationSave[$i]->save();
-                }
+                $this->saveFormToTranslation($modelForm,$modelTranslationSave,$modelTranslation->estimate_id);
 
-                return $this->redirect(['view', 'id' => $modelTranslation->id]);
+                return $this->redirect(['view', 'id' => $modelTranslationSave[0]->id]);
+            }
+            else{
+                /*handle error forms*/
             }
         }
         else {
@@ -116,8 +109,7 @@ class TranslationController extends Controller
            'estimate_id' => $estimate_id
         ])->all();
 
-        $model = new Translation();
-        $model->estimate_id= $estimate_id;
+        $model = $modelTranslation[0];
         $modelForm = [];
         foreach ($modelTranslation as $i => $translation) {
             $modelForm[$i] = new TranslationForm();
@@ -125,7 +117,7 @@ class TranslationController extends Controller
             $temp = $translation->condition_eval;
 
             $matches = null;
-            $pattern = '/(?P<result1>\w+)(?P<lower>[>=<!]+)(?P<lower_val>[+-]?\d+.?\d+)( && (?P<result2>\w+)(?P<upper>[>=<!]+)(?P<upper_val>[+-]?\d+.?\d+))?/';
+            $pattern = '/(?P<result1>\w+)(?P<lower>[>=<!]+)(?P<lower_val>[+-]?\d+.?\d+)(\s*[&|]{2}\s*(?P<result2>\w+)(?P<upper>[>=<!]+)(?P<upper_val>[+-]?\d+.?\d+))?/';
             if(preg_match($pattern,$temp,$matches)){
                 $modelForm[$i]->attributes = $matches;
             }
@@ -135,20 +127,37 @@ class TranslationController extends Controller
 
         }
 
-        $postData = Yii::$app->request->post();
+        $postData = Yii::$app->request->post('TranslationForm');
+
         if($postData){
-            $translations = [];
+            $translationForms = [];
+            $modelTranslationSave = [];
             foreach ($postData as $i => $post) {
                 if(isset($modelForm[$i])){
-                    $translations[$i] = $modelForm[$i];
+                    $translationForms[$i] = $modelForm[$i];
+                    $modelTranslationSave[$i] = $modelTranslation[$i];
+                }
+                else{
+                    $translationForms[$i] = new TranslationForm();
+                    $modelTranslationSave[$i] = new Translation();
                 }
             }
 
+            if (Model::loadMultiple($translationForms,Yii::$app->request->post()) && Model::validateMultiple($translationForms)) {
 
-            if (Model::loadMultiple($modelTranslation,Yii::$app->request->post())) {
+                $this->saveFormToTranslation($translationForms,$modelTranslationSave,$estimate_id);
 
+                /* After update tests less than before */
+                $lenTranslation = count($modelTranslation);
+                $lenPost = count(Yii::$app->request->post('TranslationForm'));
 
-                return $this->redirect(['view', 'id' => $modelTranslation->id]);
+                for ($i = $lenPost; $i<$lenTranslation; $i++){
+                    $modelTranslation[$i]->delete();
+                }
+                return $this->redirect(['view', 'id' => $modelTranslation[0]->id]);
+            }
+            else{
+                /*handle error forms*/
             }
         }
         else {
@@ -167,7 +176,9 @@ class TranslationController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $estimate_id = $this->findModel($id)->estimate_id;
+
+        Translation::deleteAll('estimate_id = :estimate_id',[':estimate_id' => $estimate_id]);
 
         return $this->redirect(['index']);
     }
@@ -187,4 +198,20 @@ class TranslationController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function saveFormToTranslation($modelForm,$modelTranslationSave,$estimate_id){
+        foreach ($modelForm as $i => $form) {
+            $modelTranslationSave[$i]->estimate_id = $estimate_id;
+            $modelTranslationSave[$i]->value = $form->value;
+            if($form->upper != ''){
+                $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val.' && '.$this->resultStr.$form->upper.$form->upper_val;
+            }
+            else{
+                $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val;
+            }
+
+            $modelTranslationSave[$i]->save();
+        }
+    }
+
 }

@@ -24,9 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
 //            'id',
-            'estimate.name',
+            [
+                'attribute' => 'estimate_id',
+                'value'     => 'estimate.name'
+            ],
+
 //            'condition_eval',
 //            'value',
 

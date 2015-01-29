@@ -18,8 +18,8 @@ class TranslationSearch extends Translation
     public function rules()
     {
         return [
-            [['id', 'estimate_id'], 'integer'],
-            [['condition_eval', 'value'], 'safe'],
+            [['id'], 'integer'],
+            [['condition_eval', 'value', 'estimate_id'], 'safe'],
         ];
     }
 
@@ -47,6 +47,8 @@ class TranslationSearch extends Translation
             'query' => $query,
         ]);
 
+        $query->joinWith('estimate');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -57,11 +59,11 @@ class TranslationSearch extends Translation
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'estimate_id' => $this->estimate_id,
         ]);
 
         $query->andFilterWhere(['like', 'condition_eval', $this->condition_eval])
-            ->andFilterWhere(['like', 'value', $this->value]);
+            ->andFilterWhere(['like', 'value', $this->value])
+            ->andFilterWhere(['like', 'estimate.name', $this->estimate_id]);
 
         return $dataProvider;
     }

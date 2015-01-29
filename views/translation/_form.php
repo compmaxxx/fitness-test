@@ -23,7 +23,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('Estimate')
+        'disabled' => !$model->isNewRecord,
+    ])
     ?>
 <!--    --><?//= $form->field($model, 'condition_eval')->textInput(['maxlength' => 50]) ?>
 <!---->

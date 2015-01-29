@@ -44,7 +44,7 @@ class Translation extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'estimate_id' => 'Estimate ID',
+            'estimate_id' => 'Estimate',
             'condition_eval' => 'Condition Eval',
             'value' => 'Value',
         ];
