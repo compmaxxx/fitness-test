@@ -75,6 +75,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                         [
                                             '>' => '>',
                                             '>=' => '>=',
+                                            '<' => '<',
+                                            '<=' => '<=',
                                             '==' => '==',
                                         ]
                                     ) ?>

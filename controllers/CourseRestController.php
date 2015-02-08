@@ -9,9 +9,17 @@
 namespace app\controllers;
 
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
+use app\models\Course;
 
 class CourseRestController extends ActiveController{
     public $modelClass = 'app\models\Course';
+
+    public function actionIndex(){
+        return new ActiveDataProvider([
+            'query' => Course::find()->where(['is_active' => Course::STATE_ACTIVE])->all(),
+        ]);
+    }
 
     public function actions()
     {

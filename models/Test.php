@@ -18,6 +18,9 @@ use Yii;
  */
 class Test extends \yii\db\ActiveRecord
 {
+    const IS_TIME = 1;
+    const IS_NOT_TIME = 0;
+    const UNIT = 'นาที';
     /**
      * @inheritdoc
      */

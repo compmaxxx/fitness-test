@@ -23,6 +23,8 @@ use yii\helpers\ArrayHelper;
 class Course extends \yii\db\ActiveRecord
 {
     public $estimate_id = [];
+    const STATE_ACTIVE = 1;
+    const STATE_INACTIVE = 0;
     /**
      * @inheritdoc
      */
