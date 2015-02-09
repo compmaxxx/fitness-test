@@ -122,12 +122,15 @@ class Course extends \yii\db\ActiveRecord
             }
         }
 
-        foreach($this->estimate_id as $estimate_id){
-            $addCourse = new AddCourse();
-            $addCourse->course_id = $this->id;
-            $addCourse->estimate_id = $estimate_id;
-            $addCourse->save();
+        if(is_array($this->estimate_id)){
+            foreach($this->estimate_id as $estimate_id){
+                $addCourse = new AddCourse();
+                $addCourse->course_id = $this->id;
+                $addCourse->estimate_id = $estimate_id;
+                $addCourse->save();
+            }
         }
+
 //        parent::afterSave($insert);
     }
 
