@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 //use yii\helpers\ArrayHelper;
+use app\models\GroupCourseSearch;
 use Yii;
 use app\models\Course;
 use app\models\CourseSearch;
@@ -33,10 +34,25 @@ class CourseController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CourseSearch();
+        $searchModel = new GroupCourseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionGrid($name)
+    {
+        $search = ['CourseSearch'=>['groupcourse_id'=>$name]];
+        if(Yii::$app->request->getIsPjax()){
+            $search = Yii::$app->request->queryParams;
+        }
+        $searchModel = new CourseSearch();
+        $dataProvider = $searchModel->search($search);
+
+        return $this->render('grid', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

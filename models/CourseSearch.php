@@ -63,8 +63,8 @@ class CourseSearch extends Course
             'is_active' => $this->is_active,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'location', $this->location])
+        $query->andFilterWhere(['like', 'course.name', $this->name])
+            ->andFilterWhere(['like', 'course.location', $this->location])
             ->andFilterWhere(['like', 'group_course.name', $this->groupcourse_id]);
 
         return $dataProvider;
