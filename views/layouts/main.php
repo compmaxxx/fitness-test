@@ -44,6 +44,8 @@ AppAsset::register($this);
                     ['label' => 'Result', 'url' => ['/result/index']],
                     ['label' => 'GroupCourse', 'url' => ['/group-course/index']],
                     ['label' => 'AddCourse', 'url' => ['/add-course/index']],
+                    ['label' => 'Assessment', 'url' => ['/assessment/index']],
+
 
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
