@@ -13,6 +13,8 @@ use Yii;
  * @property string $lastname
  * @property string $sex
  * @property integer $age
+ * @property string $uniq_id
+ * @property integer $nisit_ku
  *
  * @property Tester $tester
  */
@@ -32,10 +34,11 @@ class InfoUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tester_id', 'age'], 'integer'],
+            [['tester_id', 'age', 'nisit_ku'], 'integer'],
             [['firstname', 'lastname', 'sex', 'age'], 'required'],
             [['sex'], 'string'],
-            [['firstname', 'lastname'], 'string', 'max' => 100]
+            [['firstname', 'lastname'], 'string', 'max' => 100],
+            [['uniq_id'], 'string', 'max' => 255]
         ];
     }
 
@@ -51,6 +54,8 @@ class InfoUser extends \yii\db\ActiveRecord
             'lastname' => 'Lastname',
             'sex' => 'Sex',
             'age' => 'Age',
+            'uniq_id' => 'Uniq ID',
+            'nisit_ku' => 'Nisit Ku',
         ];
     }
 

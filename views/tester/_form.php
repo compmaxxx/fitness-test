@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'uniq_id')->textInput(['maxlength' => 20]) ?>
+    <?= $form->field($model, 'course_id')->textInput() ?>
 
-    <?= $form->field($model, 'nisitKU')->checkbox() ?>
+    <?= $form->field($model, 'tag')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

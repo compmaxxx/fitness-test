@@ -8,11 +8,12 @@ use Yii;
  * This is the model class for table "tester".
  *
  * @property integer $id
- * @property string $uniq_id
- * @property integer $nisitKU
+ * @property integer $course_id
+ * @property integer $tag
  *
  * @property InfoUser[] $infoUsers
  * @property Result[] $results
+ * @property Course $course
  */
 class Tester extends \yii\db\ActiveRecord
 {
@@ -30,9 +31,8 @@ class Tester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uniq_id', 'nisitKU'], 'required'],
-            [['nisitKU'], 'integer'],
-            [['uniq_id'], 'string', 'max' => 20]
+            [['course_id', 'tag'], 'required'],
+            [['course_id', 'tag'], 'integer']
         ];
     }
 
@@ -43,8 +43,8 @@ class Tester extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'uniq_id' => 'Uniq ID',
-            'nisitKU' => 'Nisit Ku',
+            'course_id' => 'Course ID',
+            'tag' => 'Tag',
         ];
     }
 
@@ -53,7 +53,7 @@ class Tester extends \yii\db\ActiveRecord
      */
     public function getInfoUsers()
     {
-        return $this->hasMany(InfoUser::className(), ['user_id' => 'id']);
+        return $this->hasMany(InfoUser::className(), ['tester_id' => 'id']);
     }
 
     /**
@@ -61,6 +61,14 @@ class Tester extends \yii\db\ActiveRecord
      */
     public function getResults()
     {
-        return $this->hasMany(Result::className(), ['user_id' => 'id']);
+        return $this->hasMany(Result::className(), ['tester_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCourse()
+    {
+        return $this->hasOne(Course::className(), ['id' => 'course_id']);
     }
 }

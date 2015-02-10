@@ -18,8 +18,7 @@ class TesterSearch extends Tester
     public function rules()
     {
         return [
-            [['id', 'nisitKU'], 'integer'],
-            [['uniq_id'], 'safe'],
+            [['id', 'course_id', 'tag'], 'integer'],
         ];
     }
 
@@ -57,10 +56,9 @@ class TesterSearch extends Tester
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'nisitKU' => $this->nisitKU,
+            'course_id' => $this->course_id,
+            'tag' => $this->tag,
         ]);
-
-        $query->andFilterWhere(['like', 'uniq_id', $this->uniq_id]);
 
         return $dataProvider;
     }
