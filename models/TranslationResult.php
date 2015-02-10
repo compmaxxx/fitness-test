@@ -20,6 +20,9 @@ class TranslationResult extends Model {
     public function rules(){
         return [
             [['tester_id', 'estimate_id', 'course_id'], 'required'],
+            ['tester_id', 'exist', 'targetClass' => Tester::className()],
+            ['estimate_id', 'exist', 'targetClass' => Estimate::className()],
+            ['course_id', 'exist', 'targetClass' => Course::className()],
             [['tester_id', 'estimate_id', 'course_id', 'result'], 'integer'],
             [['translation_result'], 'string', 'max' => 200],
         ];
@@ -27,7 +30,7 @@ class TranslationResult extends Model {
 
     public function translate(){
 
-        $this->checkInitValue();
+//        $this->checkInitValue();
 
         $estimate = Estimate::findOne($this->estimate_id);
 

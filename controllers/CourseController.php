@@ -7,6 +7,7 @@ use app\models\GroupCourseSearch;
 use Yii;
 use app\models\Course;
 use app\models\CourseSearch;
+use yii\base\ErrorException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,18 +33,18 @@ class CourseController extends Controller
      * Lists all Course models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionGroupList()
     {
         $searchModel = new GroupCourseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('group-list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionGrid($name)
+    public function actionIndex($name = '')
     {
         $search = ['CourseSearch'=>['groupcourse_id'=>$name]];
         if(Yii::$app->request->getIsPjax()){
@@ -52,7 +53,7 @@ class CourseController extends Controller
         $searchModel = new CourseSearch();
         $dataProvider = $searchModel->search($search);
 
-        return $this->render('grid', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

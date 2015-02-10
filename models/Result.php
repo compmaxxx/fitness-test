@@ -47,9 +47,9 @@ class Result extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'value' => 'Value',
-            'course_id' => 'Course ID',
-            'test_id' => 'Test ID',
-            'tester_id' => 'Tester ID',
+            'course_id' => 'Course',
+            'test_id' => 'Test',
+            'tester_id' => 'Tester',
         ];
     }
 

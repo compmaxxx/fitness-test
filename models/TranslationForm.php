@@ -9,12 +9,16 @@ class TranslationForm extends Model{
     public $value;
     public $lower_val,$upper_val;
 
+    private $comparison = [
+        '<','<=','>','>=','==','!='
+    ];
+
     public function rules()
     {
         return [
             [['lower', 'lower_val', 'value'], 'required','message'=>''],
             [['value'], 'string', 'max' => 200],
-            [['lower','upper'], 'string', 'max' => '3'],
+            [['lower','upper'], 'in', 'range' => $this->comparison],
             [['lower_val', 'upper_val'], 'double'],
         ];
     }
