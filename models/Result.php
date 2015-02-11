@@ -9,11 +9,9 @@ use Yii;
  *
  * @property integer $id
  * @property double $value
- * @property integer $course_id
  * @property integer $test_id
  * @property integer $tester_id
  *
- * @property Course $course
  * @property Test $test
  * @property Tester $tester
  */
@@ -35,7 +33,7 @@ class Result extends \yii\db\ActiveRecord
         return [
             [['value'], 'required'],
             [['value'], 'number'],
-            [['course_id', 'test_id', 'tester_id'], 'integer']
+            [['test_id', 'tester_id'], 'integer']
         ];
     }
 
@@ -47,18 +45,9 @@ class Result extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'value' => 'Value',
-            'course_id' => 'Course',
             'test_id' => 'Test',
             'tester_id' => 'Tester',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCourse()
-    {
-        return $this->hasOne(Course::className(), ['id' => 'course_id']);
     }
 
     /**

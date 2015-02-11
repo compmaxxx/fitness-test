@@ -27,16 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
             [
-                'attribute' => 'course_id',
-                'value' => 'course.name'
-            ],
-            [
                 'attribute' => 'test_id',
                 'value' => 'test.name'
             ],
             [
                 'attribute' => 'tester_id',
-                'value' => 'tester.uniq_id'
+                'value' => 'tester.tag'
             ],
             'value',
 

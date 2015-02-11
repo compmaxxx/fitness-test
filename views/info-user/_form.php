@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'uniq_id')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'nisit_ku')->textInput() ?>
+    <?= $form->field($model, 'nisit_ku')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

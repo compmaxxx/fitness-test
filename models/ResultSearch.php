@@ -18,8 +18,7 @@ class ResultSearch extends Result
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['course_id', 'test_id', 'tester_id'], 'safe'],
+            [['id', 'test_id', 'tester_id'], 'integer'],
             [['value'], 'number'],
         ];
     }
@@ -48,9 +47,6 @@ class ResultSearch extends Result
             'query' => $query,
         ]);
 
-        $query->joinWith('course');
-        $query->joinWith('test');
-        $query->joinWith('tester');
         $this->load($params);
 
         if (!$this->validate()) {
@@ -62,11 +58,10 @@ class ResultSearch extends Result
         $query->andFilterWhere([
             'id' => $this->id,
             'value' => $this->value,
+            'test_id' => $this->test_id,
+            'tester_id' => $this->tester_id,
         ]);
 
-        $query->andFilterWhere(['like', 'course.name', $this->course_id])
-            ->andFilterWhere(['like', 'test.name', $this->test_id])
-            ->andFilterWhere(['like', 'tester.uniq_id', $this->tester_id]);
         return $dataProvider;
     }
 }

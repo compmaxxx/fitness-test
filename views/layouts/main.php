@@ -38,12 +38,12 @@ AppAsset::register($this);
                     ['label' => 'Course', 'url' => ['/course/group-list']],
                     ['label' => 'Estimate', 'url' => ['/estimate/index']],
                     ['label' => 'Translation', 'url' => ['/translation/index']],
-                    ['label' => 'Test', 'url' => ['/test/index']],
+//                    ['label' => 'Test', 'url' => ['/test/index']],
                     ['label' => 'Tester', 'url' => ['/tester/index']],
                     ['label' => 'UserInfo', 'url' => ['/info-user/index']],
                     ['label' => 'Result', 'url' => ['/result/index']],
                     ['label' => 'GroupCourse', 'url' => ['/group-course/index']],
-                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
+//                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
                     ['label' => 'Assessment', 'url' => ['/assessment/index']],
 
 

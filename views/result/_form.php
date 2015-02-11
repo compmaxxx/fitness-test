@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
-use app\models\Course;
 use app\models\Test;
 use app\models\Tester;
 
@@ -19,14 +18,6 @@ use app\models\Tester;
 
     <?= $form->field($model, 'value')->textInput() ?>
 
-    <?= $form->field($model, 'course_id')->widget(Select2::className(),[
-        'data' => ArrayHelper::map(Course::find()->all(),'id','name'),
-        'options' => ['placeholder' => 'Select a Group of course ...'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
-
     <?= $form->field($model, 'test_id')->widget(Select2::className(),[
         'data' => ArrayHelper::map(Test::find()->all(),'id','name'),
         'options' => ['placeholder' => 'Select a Test ...'],
@@ -36,12 +27,12 @@ use app\models\Tester;
     ]) ?>
 
     <?= $form->field($model, 'tester_id')->widget(Select2::className(),[
-        'data' => ArrayHelper::map(Tester::find()->all(),'id','uniq_id'),
+        'data' => ArrayHelper::map(Tester::find()->all(),'id','tag'),
         'options' => ['placeholder' => 'Select a Tester ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]) ?>
+    ])->label('Tag Number') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
