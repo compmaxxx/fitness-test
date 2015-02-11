@@ -13,7 +13,7 @@ use yii\base\Model;
 
 class TranslationResult extends Model {
     /*Initial by tester_id, estimate_id, course_id*/
-    public $tester_id,$estimate_id,$course_id;
+    public $tester_id,$estimate_id/*,$course_id*/;
     public $result;
     public $translation_result;
 
@@ -22,7 +22,7 @@ class TranslationResult extends Model {
             [['tester_id', 'estimate_id', 'course_id'], 'required'],
             ['tester_id', 'exist', 'targetClass' => Tester::className()],
             ['estimate_id', 'exist', 'targetClass' => Estimate::className()],
-            ['course_id', 'exist', 'targetClass' => Course::className()],
+//            ['course_id', 'exist', 'targetClass' => Course::className()],
             [['tester_id', 'estimate_id', 'course_id', 'result'], 'integer'],
             [['translation_result'], 'string', 'max' => 200],
         ];
@@ -41,7 +41,6 @@ class TranslationResult extends Model {
         $replacement = [];
         foreach($tests as $test){
             $replacement[] = Result::find()->where([
-                'course_id' => $this->course_id,
                 'tester_id' => $this->tester_id,
                 'test_id'   => $test->id,
             ])->one()->value;
