@@ -14,7 +14,6 @@ use Yii;
  *
  * @property AddCourse[] $addCourses
  * @property Course[] $courses
- * @property Result[] $results
  * @property Test[] $tests
  * @property Translation[] $translations
  */
@@ -69,13 +68,6 @@ class Estimate extends \yii\db\ActiveRecord
         return $this->hasMany(Course::className(), ['id' => 'course_id'])->viaTable('add_course', ['estimate_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResults()
-    {
-        return $this->hasMany(Result::className(), ['estimate_id' => 'id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

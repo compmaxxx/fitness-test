@@ -10,9 +10,10 @@ use Yii;
  * @property integer $id
  * @property integer $course_id
  * @property integer $tag
+ * @property integer $info_user_id
  *
- * @property InfoUser[] $infoUsers
  * @property Result[] $results
+ * @property InfoUser $infoUser
  * @property Course $course
  */
 class Tester extends \yii\db\ActiveRecord
@@ -32,7 +33,7 @@ class Tester extends \yii\db\ActiveRecord
     {
         return [
             [['course_id', 'tag'], 'required'],
-            [['course_id', 'tag'], 'integer']
+            [['course_id', 'tag', 'info_user_id'], 'integer']
         ];
     }
 
@@ -45,15 +46,8 @@ class Tester extends \yii\db\ActiveRecord
             'id' => 'ID',
             'course_id' => 'Course ID',
             'tag' => 'Tag',
+            'info_user_id' => 'Info User ID',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getInfoUsers()
-    {
-        return $this->hasMany(InfoUser::className(), ['tester_id' => 'id']);
     }
 
     /**
@@ -62,6 +56,14 @@ class Tester extends \yii\db\ActiveRecord
     public function getResults()
     {
         return $this->hasMany(Result::className(), ['tester_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInfoUser()
+    {
+        return $this->hasOne(InfoUser::className(), ['id' => 'info_user_id']);
     }
 
     /**

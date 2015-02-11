@@ -18,7 +18,7 @@ class InfoUserSearch extends InfoUser
     public function rules()
     {
         return [
-            [['id', 'tester_id', 'age', 'nisit_ku'], 'integer'],
+            [['id', 'age', 'nisit_ku'], 'integer'],
             [['firstname', 'lastname', 'sex', 'uniq_id'], 'safe'],
         ];
     }
@@ -57,7 +57,6 @@ class InfoUserSearch extends InfoUser
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'tester_id' => $this->tester_id,
             'age' => $this->age,
             'nisit_ku' => $this->nisit_ku,
         ]);

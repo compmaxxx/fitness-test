@@ -18,7 +18,7 @@ class TesterSearch extends Tester
     public function rules()
     {
         return [
-            [['id', 'course_id', 'tag'], 'integer'],
+            [['id', 'course_id', 'tag', 'info_user_id'], 'integer'],
         ];
     }
 
@@ -58,6 +58,7 @@ class TesterSearch extends Tester
             'id' => $this->id,
             'course_id' => $this->course_id,
             'tag' => $this->tag,
+            'info_user_id' => $this->info_user_id,
         ]);
 
         return $dataProvider;

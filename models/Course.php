@@ -19,6 +19,8 @@ use yii\helpers\ArrayHelper;
  * @property Estimate[] $estimates
  * @property GroupCourse $groupcourse
  * @property Result[] $results
+ * @property Test[] $tests
+ * @property Tester[] $testers
  */
 class Course extends \yii\db\ActiveRecord
 {
@@ -100,6 +102,13 @@ class Course extends \yii\db\ActiveRecord
     public function getTests()
     {
         return $this->hasMany(Test::className(), ['estimate_id' => 'id'])->viaTable('estimate',['id' => 'estimate_id'])->viaTable('add_course',['course_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTesters(){
+        return $this->hasMany(Tester::className(), ['course_id' => 'id']);
     }
 
     public function getselectEstimates(){

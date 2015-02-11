@@ -102,16 +102,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.57",
+            "version": "3.1.61",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "d180082aa1ba98c85f85b2c4eebbfa195fd25613"
+                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/d180082aa1ba98c85f85b2c4eebbfa195fd25613",
-                "reference": "d180082aa1ba98c85f85b2c4eebbfa195fd25613",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
+                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
                 "form",
                 "input",
                 "inputmask",
-                "jQuery",
+                "jquery",
                 "mask",
                 "plugins"
             ]
@@ -360,16 +360,16 @@
         },
         {
             "name": "kartik-v/yii2-export",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-export.git",
-                "reference": "355a7106ef8b36a577d003fe809892fbae9d932d"
+                "reference": "cc6305ccfd0ba8452983dd222883a92efc125538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/355a7106ef8b36a577d003fe809892fbae9d932d",
-                "reference": "355a7106ef8b36a577d003fe809892fbae9d932d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/cc6305ccfd0ba8452983dd222883a92efc125538",
+                "reference": "cc6305ccfd0ba8452983dd222883a92efc125538",
                 "shasum": ""
             },
             "require": {
@@ -405,7 +405,7 @@
                 "xlsx",
                 "yii2"
             ],
-            "time": "2015-01-12 11:12:34"
+            "time": "2015-01-27 06:55:29"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -453,16 +453,16 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.7.2",
+            "version": "v1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "ba983570b04872c42205460b48fdd980b538017d"
+                "reference": "a6bd683be7a50720e4a3c8efd74b80bf5331dd69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/ba983570b04872c42205460b48fdd980b538017d",
-                "reference": "ba983570b04872c42205460b48fdd980b538017d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/a6bd683be7a50720e4a3c8efd74b80bf5331dd69",
+                "reference": "a6bd683be7a50720e4a3c8efd74b80bf5331dd69",
                 "shasum": ""
             },
             "require": {
@@ -495,7 +495,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-01-19 18:32:07"
+            "time": "2015-01-25 16:21:06"
         },
         {
             "name": "kartik-v/yii2-mpdf",
@@ -703,7 +703,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
@@ -754,7 +754,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
