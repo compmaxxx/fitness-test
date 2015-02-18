@@ -35,14 +35,15 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Course', 'url' => ['/course/group-list']],
+                    ['label' => 'Group Course', 'url' => ['/course/group-list']],
+                    ['label' => 'Course', 'url' => ['/course/index']],
                     ['label' => 'Estimate', 'url' => ['/estimate/index']],
                     ['label' => 'Translation', 'url' => ['/translation/index']],
 //                    ['label' => 'Test', 'url' => ['/test/index']],
                     ['label' => 'Tester', 'url' => ['/tester/index']],
                     ['label' => 'UserInfo', 'url' => ['/info-user/index']],
                     ['label' => 'Result', 'url' => ['/result/index']],
-                    ['label' => 'GroupCourse', 'url' => ['/group-course/index']],
+                    ['label' => 'GroupCourse List', 'url' => ['/group-course/index']],
 //                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
                     ['label' => 'Assessment', 'url' => ['/translation-result/index']],
 

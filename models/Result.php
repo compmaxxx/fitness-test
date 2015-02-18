@@ -17,6 +17,7 @@ use Yii;
  */
 class Result extends \yii\db\ActiveRecord
 {
+    public $course_id;
     /**
      * @inheritdoc
      */
@@ -33,7 +34,7 @@ class Result extends \yii\db\ActiveRecord
         return [
             [['value'], 'required'],
             [['value'], 'number'],
-            [['test_id', 'tester_id'], 'integer']
+            [['test_id', 'tester_id', 'course_id'], 'integer']
         ];
     }
 

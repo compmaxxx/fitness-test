@@ -2,9 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Course;
+use app\models\Test;
+use app\models\Tester;
 use Yii;
 use app\models\Result;
 use app\models\ResultSearch;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -101,6 +106,62 @@ class ResultController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionListCourse(){
+
+        if(isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if($parents != null){
+                $id = $parents[0];
+                $course = Course::findOne($id);
+                if($course == null){
+                    throw new NotFoundHttpException('The requested page does not exist.');
+                }
+
+                $estimates = $course->getEstimates()->all();
+                $tests = [];
+                foreach ($estimates as $estimate) {
+                    $tests = array_merge($estimate->getTests()->all(),$tests);
+                }
+
+                echo Json::encode(['output'=>$tests, 'selected'=>'']);
+            }
+
+        }
+        else{
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+        }
+
+    }
+
+    public function actionListTester(){
+
+        if(isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if($parents != null){
+                $id = $parents[0];
+                $course = Course::findOne($id);
+                if($course == null){
+                    throw new NotFoundHttpException('The requested page does not exist.');
+                }
+
+                $testers = $course->getTesters()->all();
+                $testers_arr = ArrayHelper::toArray($testers, [
+                    Tester::className() => [
+                        'id',
+                        'name' => 'tag'
+                    ]
+                ]);
+
+                echo Json::encode(['output'=>$testers_arr, 'selected'=>'']);
+            }
+
+        }
+        else{
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+        }
+
     }
 
     /**

@@ -33,7 +33,8 @@ class Tester extends \yii\db\ActiveRecord
     {
         return [
             [['course_id', 'tag'], 'required'],
-            [['course_id', 'tag', 'info_user_id'], 'integer']
+            [['course_id', 'tag', 'info_user_id'], 'integer'],
+            [['course_id', 'tag'], 'unique', 'targetAttribute' => ['course_id', 'tag']],
         ];
     }
 
