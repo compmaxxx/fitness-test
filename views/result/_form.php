@@ -19,7 +19,6 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'value')->textInput() ?>
-    <div class="form-group">
 
     <?= $form->field($model, 'course_id')->widget(Select2::className(),[
         'name' => 'course',
@@ -28,8 +27,8 @@ use yii\helpers\Url;
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ])->label('Course') ?>
-    </div>
+    ])
+    ?>
 
     <?= $form->field($model, 'test_id')->widget(DepDrop::className(),[
         'type' => DepDrop::TYPE_SELECT2,

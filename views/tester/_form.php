@@ -17,7 +17,7 @@ use app\models\InfoUser;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'course_id')->widget(Select2::className(), [
-        'data' => ArrayHelper::map(Course::find()->where($model->isNewRecord? ['is_active' => Course::STATE_ACTIVE]:[])->all(),'id','name') ,
+        'data' => ArrayHelper::map(Course::find(    )->where($model->isNewRecord? ['is_active' => Course::STATE_ACTIVE]:[])->all(),'id','name') ,
         'options' => [
             'placeholder' => 'Select Course ...',
         ],
@@ -39,7 +39,7 @@ use app\models\InfoUser;
             'allowClear' => true
         ],
 
-    ])->label('Uniq ID')
+    ])
     ?>
 
     <div class="form-group">

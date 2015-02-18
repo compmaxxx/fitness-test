@@ -48,6 +48,7 @@ class Result extends \yii\db\ActiveRecord
             'value' => 'Value',
             'test_id' => 'Test',
             'tester_id' => 'Tester',
+            'course_id' => 'Course'
         ];
     }
 

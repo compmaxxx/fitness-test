@@ -45,9 +45,9 @@ class Tester extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'course_id' => 'Course ID',
+            'course_id' => 'Course',
             'tag' => 'Tag',
-            'info_user_id' => 'Info User ID',
+            'info_user_id' => 'Uniq ID',
         ];
     }
 
