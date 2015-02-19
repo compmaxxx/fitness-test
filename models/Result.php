@@ -18,6 +18,7 @@ use Yii;
 class Result extends \yii\db\ActiveRecord
 {
     public $course_id;
+    public $unit;
     /**
      * @inheritdoc
      */
@@ -32,9 +33,10 @@ class Result extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['value'], 'required'],
+            [['value', 'test_id', 'tester_id'], 'required'],
             [['value'], 'number'],
-            [['test_id', 'tester_id', 'course_id'], 'integer']
+            [['test_id', 'tester_id', 'course_id'], 'integer'],
+            [['unit'], 'string', 'max' => 50]
         ];
     }
 

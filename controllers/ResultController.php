@@ -85,6 +85,8 @@ class ResultController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->course_id = Tester::findOne($model->tester_id)->course_id;
+        $model->unit = $model->test_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -155,6 +157,30 @@ class ResultController extends Controller
                 ]);
 
                 echo Json::encode(['output'=>$testers_arr, 'selected'=>'']);
+            }
+
+        }
+        else{
+            echo Json::encode(['output'=>'', 'selected'=>'']);
+        }
+
+    }
+
+    public function actionUnit(){
+
+        if(isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if($parents != null){
+                $id = $parents[0];
+                $test = Test::findOne($id);
+                if($test == null){
+                    throw new NotFoundHttpException('The requested page does not exist.');
+                }
+
+                $unit = $test->unit;
+
+
+                echo Json::encode(['output'=>[['id'=>$test->id, 'name'=>$unit]], 'selected'=>1]);
             }
 
         }
