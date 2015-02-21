@@ -28,8 +28,6 @@ use app\models\InfoUser;
     ])
     ?>
 
-    <?= $form->field($model, 'tag')->textInput() ?>
-
     <?= $form->field($model, 'info_user_id')->widget(Select2::className(), [
         'data' => ArrayHelper::map(InfoUser::find()->all(),'id','uniq_id') ,
         'options' => [
@@ -41,6 +39,8 @@ use app\models\InfoUser;
 
     ])
     ?>
+
+    <?= $form->field($model, 'tag')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

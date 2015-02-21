@@ -11,7 +11,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class TranslationResult extends Model {
+class Assessment extends Model {
     /*Initial by tester_id, estimate_id, course_id*/
     public $tester_id,$estimate_id/*,$course_id*/;
     public $result;
@@ -19,11 +19,11 @@ class TranslationResult extends Model {
 
     public function rules(){
         return [
-            [['tester_id', 'estimate_id', 'course_id'], 'required'],
-            ['tester_id', 'exist', 'targetClass' => Tester::className()],
-            ['estimate_id', 'exist', 'targetClass' => Estimate::className()],
+            [['tester_id', 'estimate_id', /*'course_id'*/], 'required'],
+            ['tester_id', 'exist', 'targetClass' => Tester::className(), 'targetAttribute' => 'id'],
+            ['estimate_id', 'exist', 'targetClass' => Estimate::className(), 'targetAttribute' => 'id'],
 //            ['course_id', 'exist', 'targetClass' => Course::className()],
-            [['tester_id', 'estimate_id', 'course_id', 'result'], 'integer'],
+            [['tester_id', 'estimate_id'/*, 'course_id'*/, 'result'], 'integer'],
             [['translation_result'], 'string', 'max' => 200],
         ];
     }

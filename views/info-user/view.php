@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\InfoUser */
+/* @var $model_info_user app\models\InfoUser */
 
-$this->title = $model->id;
+$this->title = $model_info_user->uniq_id;
 $this->params['breadcrumbs'][] = ['label' => 'Info Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model_info_user->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model_info_user->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -25,8 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+<!--    --><?//= print_r($assessments[0]->getErrors()) ?>
+
     <?= DetailView::widget([
-        'model' => $model,
+        'model' => $model_info_user,
         'attributes' => [
             'id',
             'firstname',
@@ -37,5 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nisit_ku',
         ],
     ]) ?>
+
+
 
 </div>

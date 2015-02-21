@@ -18,7 +18,8 @@ class ResultSearch extends Result
     public function rules()
     {
         return [
-            [['id', 'test_id', 'tester_id'], 'integer'],
+            [['id', 'tester_id'], 'integer'],
+            [['test_id', 'course_id'], 'string'],
             [['value'], 'number'],
         ];
     }
@@ -47,6 +48,8 @@ class ResultSearch extends Result
             'query' => $query,
         ]);
 
+        $query->joinWith('tester')->join('INNER JOIN','course','tester.course_id = course.id');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -55,12 +58,24 @@ class ResultSearch extends Result
             return $dataProvider;
         }
 
+        $dataProvider->sort->attributes['course_id'] = [
+            'asc' => ['course.name' => SORT_ASC],
+            'desc' => ['course.name' => SORT_DESC]
+        ];
+
+        $dataProvider->sort->attributes['tester_id'] = [
+            'asc' => ['tester.tag' => SORT_ASC],
+            'desc' => ['tester.tag' => SORT_DESC]
+        ];
+
         $query->andFilterWhere([
             'id' => $this->id,
             'value' => $this->value,
-            'test_id' => $this->test_id,
-            'tester_id' => $this->tester_id,
+            'tester.tag' => $this->tester_id,
         ]);
+
+        $query->andFilterWhere(['like', 'test.name', $this->test_id])
+            ->andFilterWhere(['like', 'course.name', $this->course_id]);
 
         return $dataProvider;
     }
