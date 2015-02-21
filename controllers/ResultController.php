@@ -180,7 +180,7 @@ class ResultController extends Controller
                 $unit = $test->unit;
 
 
-                echo Json::encode(['output'=>[['id'=>$test->id, 'name'=>$unit]], 'selected'=>1]);
+                echo Json::encode(['output'=>[['id'=>$test->id, 'name'=>$unit]], 'selected'=>$test->id]);
             }
 
         }
