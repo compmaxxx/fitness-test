@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Course */
@@ -25,14 +26,28 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <?
+        $estimates = \app\models\Estimate::find()->join('INNER JOIN','add_course','estimate.id = add_course.estimate_id')->where(['course_id' => $model->id])->all();
+
+        $estimates_name = join(', ',ArrayHelper::getColumn($estimates,'name'));
+
+    ?>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
+            [
+                'label' => 'Group Course',
+                'value' => $model->getGroupcourse()->one()->name,
+            ],
             'name',
             'location',
+            [
+                'label' => 'Estimates',
+                'value' => $estimates_name
+            ],
             'create_date',
-            'groupcourse_id',
             'is_active',
         ],
     ]) ?>
