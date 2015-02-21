@@ -36,7 +36,8 @@ class Result extends \yii\db\ActiveRecord
             [['value', 'test_id', 'tester_id'], 'required'],
             [['value'], 'number'],
             [['test_id', 'tester_id', 'course_id'], 'integer'],
-            [['unit'], 'string', 'max' => 50]
+            [['unit'], 'string', 'max' => 50],
+            [['tester_id', 'test_id'], 'unique', 'targetAttribute' => ['tester_id','test_id']],
         ];
     }
 
