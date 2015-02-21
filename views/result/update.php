@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Result */
 
 $title = $model->getTester()->one()->getCourse()->one()->name;
-$title .= '::'.$model->getTest()->one()->name;
-$title .= '::'.$model->getTester()->one()->tag;
+$title .= '-'.$model->getTest()->one()->name;
+$title .= '-'.$model->getTester()->one()->tag;
 
 $this->title = 'Update Result: ' . ' ' . $title;
 $this->params['breadcrumbs'][] = ['label' => 'Results', 'url' => ['index']];

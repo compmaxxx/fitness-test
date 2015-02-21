@@ -5,8 +5,11 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Result */
+$title = $model->getTester()->one()->getCourse()->one()->name;
+$title .= '-'.$model->getTest()->one()->name;
+$title .= '-'.$model->getTester()->one()->tag;
 
-$this->title = $model->id;
+$this->title = $title;
 $this->params['breadcrumbs'][] = ['label' => 'Results', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'value',
-            'test_id',
-            'tester_id',
+            'test.name',
+            'tester.tag',
         ],
     ]) ?>
 

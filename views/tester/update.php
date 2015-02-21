@@ -4,11 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tester */
-$info_user = $model->getInfoUser()->one();
-$title = $model->getCourse()->one()->name;
-if($info_user!=null){
-    $title .= '::'.$info_user->uniq_id;
-}
+$title = $model->getCourse()->one()->name.'-'.$model->tag;
+
 $this->title = 'Update Tester: ' . ' ' .$title;
 $this->params['breadcrumbs'][] = ['label' => 'Testers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['view', 'id' => $model->id]];
