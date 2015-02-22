@@ -40,10 +40,13 @@ class Assessment extends Model {
         $pattern = [];
         $replacement = [];
         foreach($tests as $test){
-            $replacement[] = Result::find()->where([
+            $result= Result::find()->where([
                 'tester_id' => $this->tester_id,
                 'test_id'   => $test->id,
-            ])->one()->value;
+            ])->one();
+            if($result != null){
+                $replacement[] = $result->value;
+            }
 
             $pattern[] = '/'.$test->name.'/';
         }

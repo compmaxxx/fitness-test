@@ -27,8 +27,17 @@ use app\models\Tester;
     ])
     ?>
 
+    <?
+    $tests = Test::find()->where(['id'=>$model->test_id])->all();
+    foreach ($tests as $test) {
+        $estimate_name = $test->getEstimate()->one()->name;
+        $test->name = $estimate_name.$test->name;
+    }
+
+    ?>
+
     <?= $form->field($model, 'test_id')->widget(DepDrop::className(),[
-        'data' => ArrayHelper::map(Test::find()->where(['id'=>$model->test_id])->all(),'id','name'),
+        'data' => ArrayHelper::map($tests,'id','name'),
         'type' => DepDrop::TYPE_SELECT2,
         'options' => ['placeholder' => 'Select a Test ...'],
         'select2Options'=>[
@@ -36,7 +45,7 @@ use app\models\Tester;
         ],
         'pluginOptions' => [
             'depends'   => [Html::getInputId($model,'course_id')],
-            'url'       => Url::to(['result/list-course']),
+            'url'       => Url::to(['result/list-test']),
             'loadingText' => 'Loading Test ...',
 
         ]

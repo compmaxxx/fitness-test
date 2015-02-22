@@ -110,7 +110,7 @@ class ResultController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionListCourse(){
+    public function actionListTest(){
 
         if(isset($_POST['depdrop_parents'])){
             $parents = $_POST['depdrop_parents'];
@@ -124,7 +124,12 @@ class ResultController extends Controller
                 $estimates = $course->getEstimates()->all();
                 $tests = [];
                 foreach ($estimates as $estimate) {
-                    $tests = array_merge($estimate->getTests()->all(),$tests);
+                    $estimate_tests = $estimate->getTests()->all();
+                    foreach ($estimate_tests as $test) {
+                        $test->name = $estimate->name.'-'.$test->name;
+                    }
+
+                    $tests = array_merge($estimate_tests,$tests);
                 }
 
                 echo Json::encode(['output'=>$tests, 'selected'=>'']);

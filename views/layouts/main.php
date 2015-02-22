@@ -4,6 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -27,7 +28,7 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => 'FitnessTest',
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandUrl' => /*Yii::$app->homeUrl*/Url::to('@web/course/index'),
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
@@ -45,14 +46,14 @@ AppAsset::register($this);
                     ['label' => 'Result', 'url' => ['/result/index']],
                     ['label' => 'GroupCourse List', 'url' => ['/group-course/index']],
 //                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
-                    ['label' => 'Assessment', 'url' => ['/translation-result/index']],
+//                    ['label' => 'Assessment', 'url' => ['/translation-result/index']],
 
 
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
+//                    Yii::$app->user->isGuest ?
+//                        ['label' => 'Login', 'url' => ['/site/login']] :
+//                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+//                            'url' => ['/site/logout'],
+//                            'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
             NavBar::end();

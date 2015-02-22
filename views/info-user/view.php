@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-<!--    --><?//= print_r($assessments[0]->getErrors()) ?>
+<!--    --><?//= print_r($assessments) ?>
 
     <?= DetailView::widget([
         'model' => $model_info_user,
