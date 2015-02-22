@@ -40,6 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+<!--    --><?//= print_r($assessments)?>
+        <? foreach ($assessments as $index => $assessment) {
+            echo '<h3>'.\yii\helpers\ArrayHelper::map(\app\models\Course::find()->all(),'id','name')[$index].'</h3>';
+            echo DetailView::widget([
+                'model' => $assessment,
+                'attributes' => [
+                    'result',
+                    'translation_result'
+                ]
+            ]);
+        }
+        ?>
 
 
 </div>

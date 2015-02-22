@@ -50,30 +50,29 @@ class InfoUserController extends Controller
     public function actionView($id)
     {
         $model_info_user = $this->findModel($id);
-//        $assessments = [];
-//        /*[
-//                "course_id" => model1
-//
-//        ]*/
-//        foreach ($model_info_user->getTesters()->all() as $tester) {
-//            $course = $tester->getCourse()->one();
-//            foreach ($course->getEstimates()->all() as $estimate) {
-//                $assessments[$course->id] = new Assessment();
-//                $max = new Assessment();
-//                $assessments[$course->id]->tester_id = $tester->id;
-//                $assessments[$course->id]->estimate_id = $estimate->id;
-//                $assessments[$course->id]->translate();
+        $assessments = [];
+        /*[
+                "course_id" => model1
+
+        ]*/
+        foreach ($model_info_user->getTesters()->all() as $tester) {
+            $course = $tester->getCourse()->one();
+            foreach ($course->getEstimates()->all() as $estimate) {
+                $assessments[$course->id] = new Assessment();
+                $assessments[$course->id]->tester_id = $tester->id;
+                $assessments[$course->id]->estimate_id = $estimate->id;
+                $assessments[$course->id]->translate();
 //                $assessments[$course->id]->validate();
-//
-//           }
-//
-//
-//        }
+
+           }
+
+
+        }
 
 
         return $this->render('view', [
             'model_info_user' => $model_info_user,
-//            'assessments'    => $assessments,
+            'assessments'    => $assessments,
         ]);
     }
 
