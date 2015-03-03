@@ -28,10 +28,10 @@ use app\models\Tester;
     ?>
 
     <?
-    $tests = Test::find()->where(['id'=>$model->test_id])->all();
+    $tests = Test::find()/*->where(['id'=>$model->test_id])*/->all();
     foreach ($tests as $test) {
         $estimate_name = $test->getEstimate()->one()->name;
-        $test->name = $estimate_name.$test->name;
+        $test->name = $estimate_name.' - '.$test->name;
     }
 
     ?>
@@ -53,7 +53,7 @@ use app\models\Tester;
     ]) ?>
 
     <?= $form->field($model, 'tester_id')->widget(DepDrop::className(),[
-        'data' => ArrayHelper::map(Tester::find()->where(['id'=>$model->tester_id])->all(),'id','tag'),
+        'data' => ArrayHelper::map(Tester::find()->where(['course_id'=>$model->course_id])->all(),'id','tag'),
         'type' => DepDrop::TYPE_SELECT2,
         'options' => ['placeholder' => 'Select a Tester ...'],
         'select2Options' => [
@@ -67,6 +67,7 @@ use app\models\Tester;
         ]
     ])->label('Tag Number')
     ?>
+    <div style="height: 110px">
     <?= $form->field($model, 'value', ['options' => ['class' => 'form-group col-md-8']])->textInput() ?>
     <?= $form->field($model, 'unit', ['options' => ['class' => 'form-group col-md-4']])->widget(DepDrop::className(),[
         'data' => ArrayHelper::map(Test::find()->where(['id'=>$model->test_id])->all(),'id','unit'),
@@ -83,6 +84,7 @@ use app\models\Tester;
         ],
 
     ])?>
+    </div>
 
 
     <div class="form-group">

@@ -37,7 +37,7 @@ class Result extends \yii\db\ActiveRecord
             [['value'], 'number'],
             [['test_id', 'tester_id', 'course_id'], 'integer'],
             [['unit'], 'string', 'max' => 50],
-            [['tester_id', 'test_id'], 'unique', 'targetAttribute' => ['tester_id','test_id']],
+            [['tester_id', 'test_id'], 'unique', 'targetAttribute' => ['tester_id','test_id'] , 'message'=>'It\'s already'],
         ];
     }
 

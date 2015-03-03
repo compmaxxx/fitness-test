@@ -22,8 +22,8 @@
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-export": "*",
-        "wbraganca/yii2-dynamicform": "*",
-        "kartik-v/yii2-widget-depdrop": "*"
+        "wbraganca/yii2-dynamicform": "1.1.*",
+        "kartik-v/yii2-widget-depdrop": "1.0.*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
