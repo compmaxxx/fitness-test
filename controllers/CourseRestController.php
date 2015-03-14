@@ -11,14 +11,22 @@ namespace app\controllers;
 use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use app\models\Course;
+use yii\filters\auth\HttpBasicAuth;
 
 class CourseRestController extends ActiveController{
     public $modelClass = 'app\models\Course';
 
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//        $behaviors['authenticator'] = [
+//            'class' => HttpBasicAuth::className(),
+//        ];
+//        return $behaviors;
+//    }
+
     public function actionIndex(){
-        return new ActiveDataProvider([
-            'query' => Course::find()->where(['is_active' => Course::STATE_ACTIVE])->all(),
-        ]);
+        return Course::find()->where(['is_active' => Course::STATE_ACTIVE])->all();
     }
 
     public function actions()
