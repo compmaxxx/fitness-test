@@ -15,6 +15,7 @@ use yii\rest\Controller;
 class CourseRest2Controller extends Controller{
 
     public function behaviors(){
+        $behaviors = parent::behaviors();
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::className(),
             'cors' => [
