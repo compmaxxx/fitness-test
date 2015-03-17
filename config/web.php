@@ -47,10 +47,10 @@ $config = [
           'enableStrictParsing' => false,
           'showScriptName' => false,
           'rules' => [
-            '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-            '<controller:\w+>/<action\w+>/<id:\d+>'=>'<controller>/<action>',
-            '<controller:\w+>/<action\w+>'=>'<controller>/<action>',
-              ['class' => 'yii\rest\UrlRule', 'controller' => 'course-rest2'],
+              '<controller:\w+>/<action\w+>/<id:\d+>'=>'<controller>/<action>',
+              '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+              '<controller:\w+>/<action\w+>'=>'<controller>/<action>',
+              ['class' => 'yii\rest\UrlRule', 'controller' => 'course-rest2', 'pluralize' => false],
           ],
         ],
 

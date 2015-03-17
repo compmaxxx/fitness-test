@@ -2,48 +2,49 @@
 /**
  * Created by PhpStorm.
  * User: compmaxxx
- * Date: 1/17/15
- * Time: 8:58 PM
+ * Date: 3/9/15
+ * Time: 12:33 AM
  */
 
 namespace app\controllers;
 
-use yii\rest\ActiveController;
-use yii\data\ActiveDataProvider;
+
 use app\models\Course;
-use yii\filters\auth\HttpBasicAuth;
+use yii\rest\Controller;
 
-class CourseRestController extends ActiveController{
-    public $modelClass = 'app\models\Course';
+class CourseRestController extends Controller{
 
-//    public function behaviors()
-//    {
-//        $behaviors = parent::behaviors();
-//        $behaviors['authenticator'] = [
-//            'class' => HttpBasicAuth::className(),
-//        ];
-//        return $behaviors;
-//    }
-
-    public function actionIndex(){
-        return Course::find()->where(['is_active' => Course::STATE_ACTIVE])->all();
+    public function behaviors(){
+        $behaviors = parent::behaviors();
+        $behaviors['corsFilter'] = [
+            'class' => \yii\filters\Cors::className(),
+            'cors' => [
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Max-Age' => 86400,
+            ],
+        ];
+        return $behaviors;
+    }
+    public function actionViewAll(){
+        $courses = Course::find()->where(['is_active' => Course::STATE_ACTIVE])->select('id,name,location')->all();
+        return $courses;
     }
 
-    public function actions()
-    {
-        $actions = parent::actions();
+    public function actionView($id){
+        $estimates = Course::findOne($id)->getEstimates()->all();
+        $tests = [];
+        foreach ($estimates as $estimate) {
+            $estimate_tests = $estimate->getTests()->select('id,name,unit')->all();
+            foreach ($estimate_tests as $test) {
+                $test->name = $estimate->name.'-'.$test->name;
+            }
 
-        // disable the "delete" and "create" actions
-        unset($actions['delete'], $actions['create']);
+            $tests = array_merge($estimate_tests,$tests);
+        }
+        return $tests;
 
-        // customize the data provider preparation with the "prepareDataProvider()" method
-//        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-
-        return $actions;
-    }
-
-    public function prepareDataProvider()
-    {
-        // prepare and return a data provider for the "index" action
     }
 }
