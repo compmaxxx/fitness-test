@@ -34,6 +34,10 @@ class CourseRestController extends Controller{
     }
 
     public function actionView($id){
+        $courses = Course::find($id)->select('id,name,location')->one();
+        return $courses;
+    }
+    public function actionViewTests($id){
         $estimates = Course::findOne($id)->getEstimates()->all();
         $tests = [];
         foreach ($estimates as $estimate) {
