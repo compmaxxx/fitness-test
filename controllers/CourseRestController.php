@@ -21,7 +21,7 @@ class CourseRestController extends Controller{
             'cors' => [
                 'Origin' => ['*'],
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'OPTIONS'],
-                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Request-Headers' =>     ['*'],
                 'Access-Control-Allow-Credentials' => true,
                 'Access-Control-Max-Age' => 86400,
             ],

@@ -11,6 +11,7 @@ namespace app\controllers;
 
 use app\models\Test;
 use yii\rest\Controller;
+use app\models\Course;
 
 class TestRestController extends Controller {
     public function behaviors(){
