@@ -2,18 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: compmaxxx
- * Date: 3/9/15
- * Time: 12:33 AM
+ * Date: 3/21/15
+ * Time: 5:46 PM
  */
 
 namespace app\controllers;
 
 
-use app\models\Course;
+use app\models\Test;
 use yii\rest\Controller;
 
-class CourseRestController extends Controller{
-
+class TestRestController extends Controller {
     public function behaviors(){
         $behaviors = parent::behaviors();
         $behaviors['corsFilter'] = [
@@ -28,14 +27,26 @@ class CourseRestController extends Controller{
         ];
         return $behaviors;
     }
+
     public function actionIndex(){
-        $courses = Course::find()->where(['is_active' => Course::STATE_ACTIVE])->select('id,name,location')->all();
-        return $courses;
+        return Test::find()->all();
     }
 
     public function actionView($id){
-        $courses = Course::find($id)->select('id,name,location')->one();
-        return $courses;
+        return Test::findOne($id);
     }
+    public function actionByCourse($id){
+        $estimates = Course::findOne($id)->getEstimates()->all();
+        $tests = [];
+        foreach ($estimates as $estimate) {
+            $estimate_tests = $estimate->getTests()->select('id,name,unit')->all();
+            foreach ($estimate_tests as $test) {
+                $test->name = $estimate->name.'-'.$test->name;
+            }
 
+            $tests = array_merge($estimate_tests,$tests);
+        }
+        return $tests;
+
+    }
 }

@@ -50,7 +50,9 @@ $config = [
               '<controller:\w+>/<action\w+>/<id:\d+>'=>'<controller>/<action>',
               '<controller:\w+>/<id:\d+>'=>'<controller>/view',
               '<controller:\w+>/<action\w+>'=>'<controller>/<action>',
-              ['class' => 'yii\rest\UrlRule', 'controller' => 'course-rest2', 'pluralize' => false],
+              ['class' => 'yii\rest\UrlRule', 'controller' => 'course-rest', 'pluralize' => false],
+              ['class' => 'yii\rest\UrlRule', 'controller' => 'result-rest', 'pluralize' => false],
+              ['class' => 'yii\rest\UrlRule', 'controller' => 'test-rest', 'pluralize' => false],
           ],
         ],
 

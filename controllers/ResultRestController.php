@@ -7,26 +7,57 @@
  */
 namespace app\controllers;
 
-use yii\rest\ActiveController;
+use app\models\Tester;
+use Yii;
+use app\models\Result;
+use yii\rest\Controller;
 
-class ResultRestController extends ActiveController{
-    public $modelClass = 'app\models\Result';
-
-    public function actions()
-    {
-        $actions = parent::actions();
-
-        // disable the "delete" and "create" actions
-//        unset($actions['delete'], $actions['create']);
-
-        // customize the data provider preparation with the "prepareDataProvider()" method
-//        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-
-        return $actions;
+class ResultRestController extends Controller{
+    public function behaviors(){
+        $behaviors = parent::behaviors();
+        $behaviors['corsFilter'] = [
+            'class' => \yii\filters\Cors::className(),
+            'cors' => [
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Max-Age' => 86400,
+            ],
+        ];
+        return $behaviors;
     }
 
-    public function prepareDataProvider()
-    {
-        // prepare and return a data provider for the "index" action
+    public function actionCreate(){
+        $result_req = Yii::$app->request->post();
+        $tester_tag = $result_req['tester_tag'];
+        $course_id = $result_req['course_id'];
+        $value = $result_req['value'];
+        $test_id = $result_req['test_id'];
+
+        $tester = Tester::find()->where(['course_id'=>$course_id, 'tag'=>$tester_tag])->one();
+        if($tester == null){
+            //create Tester
+            $tester = new Tester();
+            $tester->course_id = $course_id;
+            $tester->tag = $tester_tag;
+            $tester->save();
+        }
+        $result = new Result();
+        $result->tester_id = $tester->id;
+        $result->value = $value;
+        $result->test_id = $test_id;
+
+        $result->save();
+
+        if(count($result->getFirstErrors()) >= 1){
+            return ['status'=>'error', 'desc'=>$result->getErrors()];
+        }
+
+
+        return $result;
+    }
+    public function actionIndex(){
+        return Result::find()->all();
     }
 }
