@@ -29,7 +29,8 @@ class ResultRestController extends Controller{
     }
 
     public function actionCreate(){
-        $result_req = Yii::$app->request->post();
+//        $result_req = Yii::$app->request->post();
+        $result_req = json_decode(file_get_contents('php://input'),true);
         $tester_tag = $result_req['tester_tag'];
         $course_id = $result_req['course_id'];
         $value = $result_req['value'];
@@ -57,6 +58,17 @@ class ResultRestController extends Controller{
 
         return $result;
     }
+
+    public function actionDelete($id){
+        $result = Result::findOne($id);
+        $result->delete();
+        return $result;
+    }
+
+    public function actionView($id){
+        return Result::findOne($id);
+    }
+
     public function actionIndex(){
         return Result::find()->all();
     }
