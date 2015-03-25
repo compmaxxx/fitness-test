@@ -7,6 +7,7 @@
  */
 namespace app\controllers;
 
+use app\models\Test;
 use app\models\Tester;
 use Yii;
 use app\models\Result;
@@ -51,9 +52,38 @@ class ResultRestController extends Controller{
 
         $result->save();
 
-        if(count($result->getFirstErrors()) >= 1){
-            return ['status'=>'error', 'desc'=>$result->getErrors()];
+//        if(count($result->getFirstErrors()) >= 1){
+//            return ['status'=>'error', 'desc'=>$result->getErrors()];
+//        }
+
+
+        return $result;
+    }
+
+    public function actionUpdate($id){
+        $result = Result::findOne($id);
+        if($result==null){
+            return ['status' => 'error', 'desc' => 'Don\'t has this id'];
         }
+//        $result_req = Yii::$app->request->post();
+        $result_req = json_decode(file_get_contents('php://input'),true);
+        $tester_tag = $result_req['tester_tag'];
+        $value = $result_req['value'];
+        $course_id = Tester::findOne($result->tester_id)->course_id;
+
+        $tester = Tester::find()->where(['course_id'=>$course_id, 'tag'=>$tester_tag])->one();
+        if($tester == null){
+            //create Tester
+            $tester = new Tester();
+            $tester->course_id = $course_id;
+            $tester->tag = $tester_tag;
+            $tester->save();
+        }
+
+        $result->tester_id = $tester->id;
+        $result->value = $value;
+
+        $result->save();
 
 
         return $result;
@@ -71,5 +101,18 @@ class ResultRestController extends Controller{
 
     public function actionIndex(){
         return Result::find()->all();
+    }
+
+    public function actionGetResult(){
+//        $result_req = Yii::$app->request->post();
+        $result_req = json_decode(file_get_contents('php://input'),true);
+        $tester_tag = $result_req['tester_tag'];
+        $course_id = $result_req['course_id'];
+        $test_id = $result_req['test_id'];
+
+        $tester = Tester::find()->where(['course_id'=>$course_id, 'tag'=>$tester_tag])->one();
+        $result = Result::find()->where(['tester_id'=>$tester->id,'test_id'=>$test_id])->one();
+
+        return $result;
     }
 }
