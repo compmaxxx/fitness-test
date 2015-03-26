@@ -11,6 +11,7 @@ use Yii;
  * @property double $value
  * @property integer $test_id
  * @property integer $tester_id
+ * @property string $updated_time
  *
  * @property Test $test
  * @property Tester $tester
@@ -38,6 +39,7 @@ class Result extends \yii\db\ActiveRecord
             [['test_id', 'tester_id', 'course_id'], 'integer'],
             [['unit'], 'string', 'max' => 50],
             [['tester_id', 'test_id'], 'unique', 'targetAttribute' => ['tester_id','test_id'] , 'message'=>'It\'s already'],
+            [['updated_time'], 'safe'],
         ];
     }
 
@@ -51,7 +53,8 @@ class Result extends \yii\db\ActiveRecord
             'value' => 'Value',
             'test_id' => 'Test',
             'tester_id' => 'Tester',
-            'course_id' => 'Course'
+            'course_id' => 'Course',
+            'updated_time' => 'Updated Time'
         ];
     }
 
@@ -69,5 +72,11 @@ class Result extends \yii\db\ActiveRecord
     public function getTester()
     {
         return $this->hasOne(Tester::className(), ['id' => 'tester_id']);
+    }
+
+    public function beforeSave($insert){
+        if(!isset($this->updated_time))
+            $this->updated_time = new \yii\db\Expression('NOW()');
+        return parent::beforeSave($insert);
     }
 }

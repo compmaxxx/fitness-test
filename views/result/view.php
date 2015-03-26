@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'value',
             'test.name',
             'tester.tag',
+            'updated_time',
         ],
     ]) ?>
 

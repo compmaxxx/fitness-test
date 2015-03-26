@@ -21,6 +21,7 @@ class ResultSearch extends Result
             [['id', 'tester_id'], 'integer'],
             [['test_id', 'course_id'], 'string'],
             [['value'], 'number'],
+            [['updated_time'], 'safe'],
         ];
     }
 
@@ -72,6 +73,7 @@ class ResultSearch extends Result
             'id' => $this->id,
             'value' => $this->value,
             'tester.tag' => $this->tester_id,
+            'updated_time' => $this->updated_time
         ]);
 
         $query->andFilterWhere(['like', 'test.name', $this->test_id])

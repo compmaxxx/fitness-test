@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
+            'id',
             [
                 'attribute' => 'test_id',
                 'value' => 'test.name'
@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'tester.tag'
             ],
             'value',
+            'updated_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -30,8 +30,10 @@ class ResultRestController extends Controller{
     }
 
     public function actionCreate(){
-//        $result_req = Yii::$app->request->post();
-        $result_req = json_decode(file_get_contents('php://input'),true);
+        $result_req = Yii::$app->request->post();
+        if(count($result_req)<=0){
+            $result_req = json_decode(file_get_contents('php://input'),true);
+        }
         $tester_tag = $result_req['tester_tag'];
         $course_id = $result_req['course_id'];
         $value = $result_req['value'];
@@ -40,10 +42,12 @@ class ResultRestController extends Controller{
         $tester = Tester::find()->where(['course_id'=>$course_id, 'tag'=>$tester_tag])->one();
         if($tester == null){
             //create Tester
-            $tester = new Tester();
-            $tester->course_id = $course_id;
-            $tester->tag = $tester_tag;
-            $tester->save();
+//            $tester = new Tester();
+//            $tester->course_id = $course_id;
+//            $tester->tag = $tester_tag;
+//            $tester->save();
+            throw new \yii\web\HttpException(406, 'Not Found Tester.');
+
         }
         $result = new Result();
         $result->tester_id = $tester->id;
@@ -63,10 +67,14 @@ class ResultRestController extends Controller{
     public function actionUpdate($id){
         $result = Result::findOne($id);
         if($result==null){
-            return ['status' => 'error', 'desc' => 'Don\'t has this id'];
+            throw new \yii\web\HttpException(406, 'Not Found Result.');
         }
-//        $result_req = Yii::$app->request->post();
-        $result_req = json_decode(file_get_contents('php://input'),true);
+
+        $result_req = Yii::$app->request->post();
+        if(count($result_req)<=0){
+            $result_req = json_decode(file_get_contents('php://input'),true);
+        }
+
         $tester_tag = $result_req['tester_tag'];
         $value = $result_req['value'];
         $course_id = Tester::findOne($result->tester_id)->course_id;
@@ -104,8 +112,10 @@ class ResultRestController extends Controller{
     }
 
     public function actionGetResult(){
-//        $result_req = Yii::$app->request->post();
-        $result_req = json_decode(file_get_contents('php://input'),true);
+        $result_req = Yii::$app->request->post();
+        if(count($result_req)<=0){
+            $result_req = json_decode(file_get_contents('php://input'),true);
+        }
         $tester_tag = $result_req['tester_tag'];
         $course_id = $result_req['course_id'];
         $test_id = $result_req['test_id'];
