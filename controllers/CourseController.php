@@ -26,6 +26,17 @@ class CourseController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete','group-list'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
