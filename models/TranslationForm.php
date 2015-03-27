@@ -8,6 +8,7 @@ class TranslationForm extends Model{
     public $lower,$upper;
     public $value;
     public $lower_val,$upper_val;
+    public $gender;
 
     private $comparison = [
         '<','<=','>','>=','==','!='
@@ -20,6 +21,7 @@ class TranslationForm extends Model{
             [['value'], 'string', 'max' => 200],
             [['lower','upper'], 'in', 'range' => $this->comparison],
             [['lower_val', 'upper_val'], 'double'],
+            [['gender'], 'in', 'range' => ['all','male','female']]
         ];
     }
 

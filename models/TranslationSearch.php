@@ -19,7 +19,7 @@ class TranslationSearch extends Translation
     {
         return [
             [['id'], 'integer'],
-            [['condition_eval', 'value', 'estimate_id'], 'safe'],
+            [['condition_eval', 'value', 'estimate_id', 'gender'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class TranslationSearch extends Translation
 
         $query->andFilterWhere(['like', 'condition_eval', $this->condition_eval])
             ->andFilterWhere(['like', 'value', $this->value])
-            ->andFilterWhere(['like', 'estimate.name', $this->estimate_id]);
+            ->andFilterWhere(['like', 'estimate.name', $this->estimate_id])
+            ->andFilterWhere(['like', 'gender', $this->gender]);
 
         return $dataProvider;
     }

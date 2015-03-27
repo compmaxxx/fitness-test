@@ -44,10 +44,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                     'value',
                     'upper',
                     'upper_val',
+                    'gender'
                 ],
                 'options' => [
                     'min' => 1,
-                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'limit' => 15, // the maximum times, an element can be cloned (default 999)
                 ]
             ]); ?>
 
@@ -109,6 +110,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     ]) ?>
                                 </div>
 
+                                <div class="col-md-12">
+                                <?= $form->field($condition, "[{$i}]gender")->dropDownList(['all' => 'ทั้งหมด','male'=>'ชาย','female'=>'หญิง'])->label('Use For') ?>
+<!--                                --><?//= $form->field($condition, "[{$i}]gender")->textInput() ?>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -11,6 +11,7 @@ use Yii;
  * @property integer $estimate_id
  * @property string $condition_eval
  * @property string $value
+ * @property string $gender
  *
  * @property Estimate $estimate
  */
@@ -30,10 +31,11 @@ class Translation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['estimate_id', 'condition_eval', 'value'], 'required'],
+            [['estimate_id', 'condition_eval', 'value', 'gender'], 'required'],
             [['estimate_id'], 'integer'],
             [['condition_eval'], 'string', 'max' => 50],
             [['value'], 'string', 'max' => 200],
+            [['gender'], 'string', 'max' => 10],
         ];
     }
 
@@ -47,6 +49,7 @@ class Translation extends \yii\db\ActiveRecord
             'estimate_id' => 'Estimate',
             'condition_eval' => 'Condition Eval',
             'value' => 'Value',
+            'gender' => 'Use for'
         ];
     }
 

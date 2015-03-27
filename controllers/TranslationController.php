@@ -114,6 +114,7 @@ class TranslationController extends Controller
         foreach ($modelTranslation as $i => $translation) {
             $modelForm[$i] = new TranslationForm();
             $modelForm[$i]->value = $translation->value;
+            $modelForm[$i]->gender = $translation->gender;
             $temp = $translation->condition_eval;
 
             $matches = null;
@@ -203,6 +204,7 @@ class TranslationController extends Controller
         foreach ($modelForm as $i => $form) {
             $modelTranslationSave[$i]->estimate_id = $estimate_id;
             $modelTranslationSave[$i]->value = $form->value;
+            $modelTranslationSave[$i]->gender = $form->gender;
             if($form->upper != ''){
                 $modelTranslationSave[$i]->condition_eval = $this->resultStr.$form->lower.$form->lower_val.' && '.$this->resultStr.$form->upper.$form->upper_val;
             }
