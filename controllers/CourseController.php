@@ -28,11 +28,11 @@ class CourseController extends Controller
             ],
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete','group-list'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'group-list'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'group-list'],
                         'roles' => ['@'],
                     ],
                 ],
