@@ -35,6 +35,8 @@ class Tester extends \yii\db\ActiveRecord
             [['course_id', 'tag'], 'required'],
             [['course_id', 'tag', 'info_user_id'], 'integer'],
             [['course_id', 'tag'], 'unique', 'targetAttribute' => ['course_id', 'tag']],
+            [['info_user_id'], 'integer'],
+            [['info_user_id'], 'exist', 'targetClass' => InfoUser::className(), 'targetAttribute' => 'uniq_id', 'message'=>'Student ID is invalid']
         ];
     }
 
@@ -73,5 +75,11 @@ class Tester extends \yii\db\ActiveRecord
     public function getCourse()
     {
         return $this->hasOne(Course::className(), ['id' => 'course_id']);
+    }
+
+    public function beforeSave($insert){
+        $std_id = $this->info_user_id;
+        $this->info_user_id = InfoUser::find()->where(['uniq_id'=>$std_id])->one()->id;
+        return parent::beforeSave($insert);
     }
 }

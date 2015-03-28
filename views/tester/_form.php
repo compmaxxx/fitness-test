@@ -14,10 +14,12 @@ use app\models\InfoUser;
 
 <div class="tester-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'enableAjaxValidation' => true,
+    ]); ?>
 
     <?= $form->field($model, 'course_id')->widget(Select2::className(), [
-        'data' => ArrayHelper::map(Course::find(    )->where($model->isNewRecord? ['is_active' => Course::STATE_ACTIVE]:[])->all(),'id','name') ,
+        'data' => ArrayHelper::map(Course::find()->where($model->isNewRecord? ['is_active' => Course::STATE_ACTIVE]:[])->all(),'id','name') ,
         'options' => [
             'placeholder' => 'Select Course ...',
         ],
@@ -27,18 +29,18 @@ use app\models\InfoUser;
 
     ])
     ?>
-
-    <?= $form->field($model, 'info_user_id')->widget(Select2::className(), [
-        'data' => ArrayHelper::map(InfoUser::find()->all(),'id','uniq_id') ,
-        'options' => [
-            'placeholder' => 'Select Course ...',
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-
-    ])
-    ?>
+    <?=$form->field($model,'info_user_id')->textInput()->label('Student ID')?>
+<!--    --><?//= $form->field($model, 'info_user_id')->widget(Select2::className(), [
+//        'data' => ArrayHelper::map(InfoUser::find()->all(),'id','uniq_id') ,
+//        'options' => [
+//            'placeholder' => 'Select Course ...',
+//        ],
+//        'pluginOptions' => [
+//            'allowClear' => true
+//        ],
+//
+//    ])
+//    ?>
 
     <?= $form->field($model, 'tag')->textInput() ?>
 

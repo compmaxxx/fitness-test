@@ -8,6 +8,8 @@ use app\models\TesterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * TesterController implements the CRUD actions for Tester model.
@@ -72,6 +74,11 @@ class TesterController extends Controller
     public function actionCreate($course_id = -1)
     {
         $model = new Tester();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
