@@ -64,7 +64,7 @@ $config = [
         ]
     ],
     'params' => $params,
-    'defaultRoute' => 'site/login',
+    'defaultRoute' => 'course/index',
 ];
 
 if (YII_ENV_DEV) {
