@@ -65,7 +65,7 @@ use app\models\Tester;
             'loadingText' => 'Loading Tester ...',
 
         ]
-    ])->label('Tag Number')
+    ])
     ?>
     <div style="height: 110px">
     <?= $form->field($model, 'value', ['options' => ['class' => 'form-group col-md-8']])->textInput() ?>

@@ -52,7 +52,7 @@ class Result extends \yii\db\ActiveRecord
             'id' => 'ID',
             'value' => 'Value',
             'test_id' => 'Test',
-            'tester_id' => 'Tester',
+            'tester_id' => 'Tag',
             'course_id' => 'Course',
             'updated_time' => 'Updated Time'
         ];
