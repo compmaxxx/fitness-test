@@ -7,7 +7,7 @@ use app\models\Test;
 use app\models\Tester;
 use Yii;
 use app\models\Result;
-use app\models\ResultSearch;
+use app\models\ResultLackSearch;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -46,13 +46,12 @@ class ResultLackController extends Controller
      * Lists all Result models.
      * @return mixed
      */
-    public function actionIndex($course_id)
+    public function actionIndex()
     {
-        $search = ['ResultSearch'=>['course_id'=>$course_id]];
-        if(Yii::$app->request->getIsPjax()){
-            $search = Yii::$app->request->queryParams;
-        }
-        $searchModel = new ResultSearch();
+
+        $search = Yii::$app->request->queryParams;
+        $searchModel = new ResultLackSearch();
+//        $searchModel->course_id = $course_id;
         $dataProvider = $searchModel->search($search);
 
         return $this->render('index', [

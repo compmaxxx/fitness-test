@@ -5,12 +5,11 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Result;
 
 /**
- * ResultSearch represents the model behind the search form about `app\models\Result`.
+ * ResultLackSearch represents the model behind the search form about `app\models\ResultLack`.
  */
-class ResultSearch extends Result
+class ResultLackSearch extends ResultLack
 {
     /**
      * @inheritdoc
@@ -18,10 +17,8 @@ class ResultSearch extends Result
     public function rules()
     {
         return [
-            [['id', 'tester_id'], 'integer'],
-            [['test_id', 'course_id'], 'string'],
-            [['value'], 'number'],
-            [['updated_time'], 'safe'],
+            [['test_id'], 'string'],
+            [['tester_id'], 'integer'],
         ];
     }
 
@@ -43,13 +40,23 @@ class ResultSearch extends Result
      */
     public function search($params)
     {
-        $query = Result::find();
+//        $estimates = Course::findOne($this->course_id)->getEstimates()->all();
+//        $tests = [];
+//        foreach ($estimates as $estimate) {
+//            $tests = array_merge($tests,$estimate->getTests()->all());
+//        }
+
+//        $tests_len = count($tests);
+
+//        $people_incomplete = Tester::find()->where(['course_id' => $this->course_id])->join('LEFT JOIN','result','tester.id = result.tester_id')->groupBy('tester_id')->having('count(*) < '.$tests_len)->select('tester_id');
+//
+//        $list_incomplete = (new Query())->select(['test_id','tester.tag','test.unit'])->from(['test','tester'])->where('course_id');
+        $query = ResultLack::find()/*->joinWith('tester')->where(['tester.course_id'=>$this->course_id])*/;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $query->joinWith('tester')->join('INNER JOIN','course','tester.course_id = course.id');
+        $query->joinWith('tester');
 
         $this->load($params);
 
@@ -59,10 +66,10 @@ class ResultSearch extends Result
             return $dataProvider;
         }
 
-        $dataProvider->sort->attributes['course_id'] = [
-            'asc' => ['course.name' => SORT_ASC],
-            'desc' => ['course.name' => SORT_DESC]
-        ];
+//        $dataProvider->sort->attributes['course_id'] = [
+//            'asc' => ['course.name' => SORT_ASC],
+//            'desc' => ['course.name' => SORT_DESC]
+//        ];
 
         $dataProvider->sort->attributes['tester_id'] = [
             'asc' => ['tester.tag' => SORT_ASC],
@@ -70,14 +77,11 @@ class ResultSearch extends Result
         ];
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'value' => $this->value,
             'tester.tag' => $this->tester_id,
-            'updated_time' => $this->updated_time
+            'tester.course_id' => $this->course_id,
         ]);
 
-        $query->andFilterWhere(['like', 'test.name', $this->test_id])
-            ->andFilterWhere(['like', 'course.name', $this->course_id]);
+        $query->andFilterWhere(['like', 'test.name', $this->test_id]);
 
         return $dataProvider;
     }

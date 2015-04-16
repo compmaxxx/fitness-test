@@ -44,34 +44,37 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             [
                 'attribute' => 'test_id',
                 'value' => 'test.name'
             ],
-
-            [
-                'attribute' => 'course_id',
-                'value' => 'tester.course.name'
-            ],
+            'course_id',
+//            [
+//                'attribute' => 'course_id',
+//                'value' => 'course.name'
+//            ],
 
             [
                 'attribute' => 'tester_id',
                 'value' => 'tester.tag'
             ],
-            'value',
-            'updated_time',
+//            'value',
+//            'updated_time',
+//            [
+//                'attribute' => 'unit',
+//                'value' => 'test.unit'
+//            ],
 
-            [
-                'attribute' => '',
-                'format'    => 'raw',
-                'value' => function($model){
-                    $course_id =  $model->getTester()->one()->getCourse()->one()->id;
-                    $test_id = $model->getTest()->one()->id;
-                    $tester_id = $model->getTester()->one()->id;
-                    return Html::button('add',['value' => Url::to(['result-lack/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
-                }
-            ],
+//            [
+//                'attribute' => '',
+//                'format'    => 'raw',
+//                'value' => function($model){
+//                    $course_id =  $model->getTester()->one()->getCourse()->one()->id;
+//                    $test_id = $model->getTest()->one()->id;
+//                    $tester_id = $model->getTester()->one()->id;
+//                    return Html::button('add',['value' => Url::to(['result-lack/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
+//                }
+//            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
