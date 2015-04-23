@@ -10,6 +10,8 @@ use Yii;
  * @property integer $course_id
  * @property integer $test_id
  * @property integer $tester_id
+ * @property integer $tag
+ * @property integer $test_name
  */
 class ResultLack extends \yii\db\ActiveRecord
 {
@@ -28,7 +30,8 @@ class ResultLack extends \yii\db\ActiveRecord
     {
         return [
             [['course_id'], 'required'],
-            [['course_id', 'test_id', 'tester_id'], 'integer']
+            [['course_id', 'test_id', 'tester_id', 'tag'], 'integer'],
+            [['test_name'], 'string'],
         ];
     }
 
@@ -39,8 +42,10 @@ class ResultLack extends \yii\db\ActiveRecord
     {
         return [
             'course_id' => 'Course',
-            'test_id' => 'Test',
-            'tester_id' => 'Tag',
+            'test_id' => 'Test ID',
+            'tester_id' => 'Tester ID',
+            'tag'   => 'Tag',
+            'tester_name' => 'Test Name'
         ];
     }
 

@@ -17,8 +17,8 @@ class ResultLackSearch extends ResultLack
     public function rules()
     {
         return [
-            [['test_id'], 'string'],
-            [['tester_id'], 'integer'],
+            [['tester_id','course_id','test_id','tag'], 'integer'],
+            [['test_name'], 'string']
         ];
     }
 
@@ -56,7 +56,7 @@ class ResultLackSearch extends ResultLack
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $query->joinWith('tester');
+//        $query->join('INNER JOIN','tester','tester.id=tester_id')->join('INNER JOIN','test','test.id=test_id');
 
         $this->load($params);
 
@@ -70,18 +70,20 @@ class ResultLackSearch extends ResultLack
 //            'asc' => ['course.name' => SORT_ASC],
 //            'desc' => ['course.name' => SORT_DESC]
 //        ];
-
-        $dataProvider->sort->attributes['tester_id'] = [
-            'asc' => ['tester.tag' => SORT_ASC],
-            'desc' => ['tester.tag' => SORT_DESC]
-        ];
+//
+//        $dataProvider->sort->attributes['tester_id'] = [
+//            'asc' => ['tester.tag' => SORT_ASC],
+//            'desc' => ['tester.tag' => SORT_DESC]
+//        ];
 
         $query->andFilterWhere([
             'tester.tag' => $this->tester_id,
-            'tester.course_id' => $this->course_id,
+            'course_id' => $this->course_id,
+            'tag' => $this->tag,
         ]);
 
-        $query->andFilterWhere(['like', 'test.name', $this->test_id]);
+        $query->andFilterWhere(['like', 'test_name', $this->test_name]);
+
 
         return $dataProvider;
     }

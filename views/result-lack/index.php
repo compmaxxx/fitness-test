@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         Modal::end();
     ?>
 
-    <?php Pjax::begin(); ?>
+<!--    --><?php //Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -45,38 +45,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'test_id',
-                'value' => 'test.name'
+                'attribute' => 'test_name',
+                'value' => 'test_name'
             ],
-            'course_id',
+//            'course_id',
 //            [
 //                'attribute' => 'course_id',
 //                'value' => 'course.name'
 //            ],
+            [
+                'attribute' => 'tag',
+                'value' => 'tag'
+            ],
 
             [
-                'attribute' => 'tester_id',
-                'value' => 'tester.tag'
+                'attribute' => '',
+                'format'    => 'raw',
+                'value' => function($model){
+                    $course_id =  $model->getTester()->one()->getCourse()->one()->id;
+                    $test_id = $model->getTest()->one()->id;
+                    $tester_id = $model->getTester()->one()->id;
+                    return Html::button('add',['value' => Url::to(['result-lack/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
+                }
             ],
-//            'value',
-//            'updated_time',
-//            [
-//                'attribute' => 'unit',
-//                'value' => 'test.unit'
-//            ],
-
-//            [
-//                'attribute' => '',
-//                'format'    => 'raw',
-//                'value' => function($model){
-//                    $course_id =  $model->getTester()->one()->getCourse()->one()->id;
-//                    $test_id = $model->getTest()->one()->id;
-//                    $tester_id = $model->getTester()->one()->id;
-//                    return Html::button('add',['value' => Url::to(['result-lack/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
-//                }
-//            ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+<!--    --><?php //Pjax::end(); ?>
 
 </div>
