@@ -44,6 +44,7 @@ AppAsset::register($this);
                     ['label' => 'Tester', 'url' => ['/tester/index']],
                     ['label' => 'UserInfo', 'url' => ['/info-user/index']],
                     ['label' => 'Result', 'url' => ['/result/index']],
+                    ['label' => 'Result Missing', 'url' => ['/course-missing/index']],
                     ['label' => 'GroupCourse List', 'url' => ['/group-course/index']],
 //                    ['label' => 'AddCourse', 'url' => ['/add-course/index']],
 //                    ['label' => 'Assessment', 'url' => ['/translation-result/index']],

@@ -13,14 +13,14 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ResultLackAsset extends AssetBundle
+class ResultMissingAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
     ];
     public $js = [
-        'js/result-lack.js',
+        'js/result-missing.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

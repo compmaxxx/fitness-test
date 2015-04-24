@@ -13,7 +13,7 @@ use Yii;
  * @property integer $tag
  * @property integer $test_name
  */
-class ResultLack extends \yii\db\ActiveRecord
+class ResultMissing extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

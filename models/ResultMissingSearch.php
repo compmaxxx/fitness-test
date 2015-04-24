@@ -7,9 +7,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ResultLackSearch represents the model behind the search form about `app\models\ResultLack`.
+ * ResultMissingSearch represents the model behind the search form about `app\models\ResultMissing`.
  */
-class ResultLackSearch extends ResultLack
+class ResultMissingSearch extends ResultMissing
 {
     /**
      * @inheritdoc
@@ -51,7 +51,7 @@ class ResultLackSearch extends ResultLack
 //        $people_incomplete = Tester::find()->where(['course_id' => $this->course_id])->join('LEFT JOIN','result','tester.id = result.tester_id')->groupBy('tester_id')->having('count(*) < '.$tests_len)->select('tester_id');
 //
 //        $list_incomplete = (new Query())->select(['test_id','tester.tag','test.unit'])->from(['test','tester'])->where('course_id');
-        $query = ResultLack::find()/*->joinWith('tester')->where(['tester.course_id'=>$this->course_id])*/;
+        $query = ResultMissing::find()/*->joinWith('tester')->where(['tester.course_id'=>$this->course_id])*/;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

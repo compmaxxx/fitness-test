@@ -5,15 +5,15 @@ use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use app\assets\ResultLackAsset;
+use app\assets\ResultMissingAsset;
 
-ResultLackAsset::register($this);
+ResultMissingAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ResultSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Results';
+$this->title = $course->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="result-index">
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $course_id =  $model->getTester()->one()->getCourse()->one()->id;
                     $test_id = $model->getTest()->one()->id;
                     $tester_id = $model->getTester()->one()->id;
-                    return Html::button('add',['value' => Url::to(['result-lack/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
+                    return Html::button('add',['value' => Url::to(['result-missing/create','course_id' => $course_id, 'test_id' => $test_id, 'tester_id' => $tester_id]), 'class' => 'btn btn-success add-result']);
                 }
             ],
         ],

@@ -9,6 +9,7 @@ use app\models\Course;
 use yii\helpers\Url;
 use app\models\Test;
 use app\models\Tester;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Result */
@@ -16,6 +17,7 @@ use app\models\Tester;
 ?>
 <div class="result-form">
 
+    <?php Pjax::begin(); ?>
     <?php $form = ActiveForm::begin(); ?>
     
     <?= $form->field($model, 'course_id')->widget(Select2::className(),[
@@ -45,7 +47,7 @@ use app\models\Tester;
         ],
         'pluginOptions' => [
             'depends'   => [Html::getInputId($model,'course_id')],
-            'url'       => Url::to(['result-lack/list-test']),
+            'url'       => Url::to(['result-missing/list-test']),
             'loadingText' => 'Loading Test ...',
 
         ]
@@ -61,7 +63,7 @@ use app\models\Tester;
         ],
         'pluginOptions' => [
             'depends'   => [Html::getInputId($model,'course_id')],
-            'url'       => Url::to(['result-lack/list-tester']),
+            'url'       => Url::to(['result-missing/list-tester']),
             'loadingText' => 'Loading Tester ...',
 
         ]
@@ -78,7 +80,7 @@ use app\models\Tester;
         ],
         'pluginOptions' => [
             'depends'   => [Html::getInputId($model,'test_id')],
-            'url'       => Url::to(['result-lack/unit']),
+            'url'       => Url::to(['result-missing/unit']),
             'loadingText' => 'Loading Unit ...',
             'initialize' => !$model->isNewRecord
         ],
@@ -92,5 +94,6 @@ use app\models\Tester;
     </div>
 
     <?php ActiveForm::end(); ?>
+    <?php Pjax::end(); ?>
 
 </div>

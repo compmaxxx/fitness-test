@@ -7,17 +7,18 @@ use app\models\Test;
 use app\models\Tester;
 use Yii;
 use app\models\Result;
-use app\models\ResultLackSearch;
+use app\models\ResultMissingSearch;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
- * ResultController implements the CRUD actions for Result model.
+ * ResultMissingController implements the CRUD actions for Result model.
  */
-class ResultLackController extends Controller
+class ResultMissingController extends Controller
 {
     public function behaviors()
     {
@@ -46,17 +47,18 @@ class ResultLackController extends Controller
      * Lists all Result models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($course_id)
     {
-
+        $course = Course::findOne($course_id);
         $search = Yii::$app->request->queryParams;
-        $searchModel = new ResultLackSearch();
-//        $searchModel->course_id = $course_id;
+        $searchModel = new ResultMissingSearch();
+        $searchModel->course_id = $course_id;
         $dataProvider = $searchModel->search($search);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'course'    => $course,
         ]);
     }
 
@@ -85,7 +87,7 @@ class ResultLackController extends Controller
         $model->tester_id = $tester_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(Url::to(['index','course_id'=>$course_id]));
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
