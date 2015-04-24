@@ -85,8 +85,22 @@ class ResultMissingController extends Controller
         $model->course_id = $course_id;
         $model->test_id = $test_id;
         $model->tester_id = $tester_id;
+        $success = false;
+        $error = [];
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            if($model->hasErrors()){
+                $error = $model->getErrors();
+            }
+            else{
+                $success = true;
+            }
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [
+              'success' => $success,
+              'error'   => $error
+            ];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Url::to(['index','course_id'=>$course_id]));
         } else {
             return $this->renderAjax('create', [

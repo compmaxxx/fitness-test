@@ -9,16 +9,49 @@ use app\models\Course;
 use yii\helpers\Url;
 use app\models\Test;
 use app\models\Tester;
-use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Result */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->registerJs('
+    $(document).ready(function(){
+        $("#missing-form").submit(function() {
+        $(".missing-group").removeClass("has-error");      //remove error class
+        $(".help-block").html("");                      //remove existing error messages
+
+        var form_data = $("#missing-form").serialize();
+        var action_url = $("#missing-form").attr("action");
+
+        $.ajax({
+            method: "POST",
+            url: action_url,
+            data: form_data
+        })
+        .done(function( data ) {
+            console.log(data);
+            if(data.success == true)    {       //data saved successfully
+                location.reload();
+            }   else    {       //validation errors occurred
+                   $.each(data.error, function(ind, vl) {      //show errors to user
+                    $(".field-result-"+ind).addClass("has-error");
+                    $(".field-result-"+ind).find(".help-block").html(vl[0]);
+                });
+            }
+
+        });
+        return false;
+    });
+    });', \yii\web\View::POS_READY, 'my-ajax-form-submit');
+
+
 ?>
 <div class="result-form">
 
-    <?php Pjax::begin(); ?>
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'missing-form',
+        'enableClientValidation' => false,
+    ]); ?>
     
     <?= $form->field($model, 'course_id')->widget(Select2::className(),[
         'data' => ArrayHelper::map(Course::find()->where('is_active = :active OR id = :id',[':active'=>Course::STATE_ACTIVE, ':id'=>$model->course_id])->all(),'id','name'),
@@ -94,6 +127,5 @@ use yii\widgets\Pjax;
     </div>
 
     <?php ActiveForm::end(); ?>
-    <?php Pjax::end(); ?>
 
 </div>
