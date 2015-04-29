@@ -69,7 +69,8 @@ class Assessment extends Model {
                 eval('$condition_eval = ' . $expression . ';');
 //            var_dump($condition_eval);
                 if ($condition_eval !== null) {
-                    $this->translation_result = $translation->value;
+                    if($condition_eval == true)
+                        $this->translation_result = $translation->value;
                 }
 
             }

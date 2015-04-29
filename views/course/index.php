@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'groupcourse_id',
                 'value' => 'groupcourse.name'
             ],
-            'id',
+//            'id',
             'name',
             'is_active',
 //            ['class' => '\kartik\grid\CheckboxColumn'],
