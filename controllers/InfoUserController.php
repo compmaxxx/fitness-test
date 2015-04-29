@@ -68,15 +68,16 @@ class InfoUserController extends Controller
         ]*/
         foreach ($model_info_user->getTesters()->all() as $tester) {
             $course = $tester->getCourse()->one();
+            $assessments[$course->id] = [];
             foreach ($course->getEstimates()->all() as $estimate) {
-                $assessments[$course->id] = new Assessment();
-                $assessments[$course->id]->tester_id = $tester->id;
-                $assessments[$course->id]->estimate_id = $estimate->id;
-                $assessments[$course->id]->translate();
+                $assessment = new Assessment();
+                $assessment->tester_id = $tester->id;
+                $assessment->estimate_id = $estimate->id;
+                $assessment->translate();
+                $assessments[$course->id][] = $assessment;
 //                $assessments[$course->id]->validate();
 
            }
-
 
         }
 

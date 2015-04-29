@@ -36,6 +36,7 @@ class Assessment extends Model {
 
         $tests = $estimate->getTests()->all();
         $translations = $estimate->getTranslations()->all();
+        $user = Tester::findOne($this->tester_id)->getInfoUser()->one();
 
         $pattern = [];
         $replacement = [];
@@ -46,6 +47,10 @@ class Assessment extends Model {
             ])->one();
             if($result != null){
                 $replacement[] = $result->value;
+            }else{
+                $this->result = null;
+                $this->translation_result = null;
+                return ;
             }
 
             $pattern[] = '/'.$test->name.'/';
@@ -56,17 +61,20 @@ class Assessment extends Model {
 
 
         foreach ($translations as $translation) {
-            $condition = $translation->condition_eval;
-            $expression = preg_replace('/result/', $this->result, $condition);
-            $condition_eval = false;
-            eval('$condition_eval = '.$expression.';');
+
+            if ($translation->gender == $user->sex) {
+                $condition = $translation->condition_eval;
+                $expression = preg_replace('/result/', $this->result, $condition);
+                $condition_eval = null;
+                eval('$condition_eval = ' . $expression . ';');
 //            var_dump($condition_eval);
-            if($condition_eval){
-                $this->translation_result = $translation->value;
+                if ($condition_eval !== null) {
+                    $this->translation_result = $translation->value;
+                }
+
             }
 
         }
-
 
     }
 
@@ -112,8 +120,8 @@ class Assessment extends Model {
     {
         $result = -1;
         $expression = preg_replace($pattern, $replacement, $cal);
-        eval('$result = ' . $expression . ';');
 
+        eval('$result = ' . $expression . ';');
         return $result;
     }
 

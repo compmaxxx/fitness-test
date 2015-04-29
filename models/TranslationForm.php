@@ -21,7 +21,7 @@ class TranslationForm extends Model{
             [['value'], 'string', 'max' => 200],
             [['lower','upper'], 'in', 'range' => $this->comparison],
             [['lower_val', 'upper_val'], 'double'],
-            [['gender'], 'in', 'range' => ['all','male','female']]
+            [['gender'], 'in', 'range' => ['ทั้งหมด','ชาย','หญิง']]
         ];
     }
 

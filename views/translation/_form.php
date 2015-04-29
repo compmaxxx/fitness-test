@@ -111,7 +111,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 </div>
 
                                 <div class="col-md-12">
-                                <?= $form->field($condition, "[{$i}]gender")->dropDownList(['all' => 'ทั้งหมด','male'=>'ชาย','female'=>'หญิง'])->label('Use For') ?>
+                                <?= $form->field($condition, "[{$i}]gender")->dropDownList(['ชาย'=>'ชาย','หญิง'=>'หญิง'])->label('Use For') ?>
 <!--                                --><?//= $form->field($condition, "[{$i}]gender")->textInput() ?>
                                 </div>
                             </div>
