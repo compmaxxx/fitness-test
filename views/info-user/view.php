@@ -93,12 +93,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ?>
             </table>
-            <h5>การคำนวณการประเมิน</h5>
+            <h5>การประเมินผลการทดสอบ</h5>
             <table border="2" class="cent" width="400px">
                 <thead>
                     <tr>
                         <th>รายการ</th>
-                        <th>ผล</th>
+                        <th>ค่าการคำนวณ</th>
+                        <th>การแปลผล</th>
                     </tr>
                 </thead>
                 <?
@@ -108,6 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr>
                         <td><?=$estimate_kk->name?></td>
                         <td><?=$ass->result==null? $dont_have:$ass->result ?></td>
+                        <td><?=$ass->translation_result==null? $dont_have:$ass->translation_result?></td>
                     </tr>
                 <?
                 }
@@ -115,27 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </table>
 
-            <h5>การประเมินผลการทดสอบ</h5>
-            <table border="2" class="cent" width="400px">
-                <thead>
-                <tr>
-                    <th>รายการ</th>
-                    <th>ผล</th>
-                </tr>
-                </thead>
-                <?
-                foreach ($assessment as $ass) {
-                    $estimate_kk = Estimate::findOne($ass->estimate_id);
-                    ?>
-                    <tr>
-                        <td><?=$estimate_kk->name?></td>
-                        <td><?=$ass->translation_result==null? $dont_have:$ass->translation_result ?></td>
-                    </tr>
-                <?
-                }
-
-                ?>
-            </table>
         <?
         }
         ?>
