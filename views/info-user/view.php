@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ?>
                     <tr>
                         <td><?=$estimate_kk->name?></td>
-                        <td><?=$ass->result==null? $dont_have:$ass->result ?></td>
+                        <td><?=$ass->result==null? $dont_have:round($ass->result,2) ?></td>
                         <td><?=$ass->translation_result==null? $dont_have:$ass->translation_result?></td>
                     </tr>
                 <?

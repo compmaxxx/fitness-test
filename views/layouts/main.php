@@ -70,8 +70,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; Intelligent Wireless Network Group <?= date('Y') ?></p>
+            <p class="pull-right">Powered By <a href="http://fb.com/compmaxx">Maxx Kanin</a></p>
         </div>
     </footer>
 
